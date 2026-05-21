@@ -3,15 +3,11 @@
 
 == Hình học và đồ họa với cetz
 
-Một tài liệu Toán học chuyên nghiệp không thể thiếu hình vẽ. Hình minh hoạ giúp học sinh
-hình dung khái niệm trừu tượng, làm rõ quan hệ hình học và làm đẹp trang sách.
-Trong Typst, gói `cetz` (viết tắt của _CErtified TyZ_) là công cụ vẽ hình vector
-mạnh mẽ nhất — tương đương với TikZ trong LaTeX nhưng cú pháp đơn giản và nhất quán hơn nhiều.
+Một tài liệu Toán học chuyên nghiệp không thể thiếu hình vẽ. Hình minh hoạ giúp học sinh hình dung khái niệm trừu tượng, làm rõ quan hệ hình học và làm đẹp trang sách. Trong Typst, gói `cetz` (viết tắt của _CErtified TyZ_) là công cụ vẽ hình vector mạnh mẽ nhất — tương đương với TikZ trong LaTeX nhưng cú pháp đơn giản và nhất quán hơn nhiều.
 
 === Giới thiệu cetz
 
-`cetz` cho phép vẽ điểm, đoạn thẳng, đường tròn, cung, hình chữ nhật, đường cong
-Bezier, và gán nhãn cho mọi đối tượng. Kết quả là hình vector hoàn hảo trong file PDF.
+Gói `cetz` cho phép vẽ điểm, đoạn thẳng, đường tròn, cung, hình chữ nhật, đường cong Bezier, và gán nhãn cho mọi đối tượng. Kết quả là hình vector hoàn hảo trong file PDF.
 
 #code-block[
 ```typst
@@ -20,8 +16,7 @@ Bezier, và gán nhãn cho mọi đối tượng. Kết quả là hình vector h
 ```
 ]
 
-Mọi hình vẽ được đặt trong khối `canvas`. Canvas hoạt động như một hệ tọa độ Descartes
-với gốc ở góc dưới bên trái (mặc định).
+Mọi hình vẽ được đặt trong khối `canvas`. Canvas hoạt động như một hệ tọa độ Descartes với gốc ở góc dưới bên trái (mặc định).
 
 === Canvas — Hệ tọa độ
 
