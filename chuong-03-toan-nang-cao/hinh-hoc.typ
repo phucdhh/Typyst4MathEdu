@@ -53,6 +53,19 @@ với gốc ở góc dưới bên trái (mặc định).
 ```
 ]
 
+#figure(
+  canvas(length: 0.7cm, {
+    import draw: *
+    circle((0, 0), radius: 0.07, fill: black)
+    circle((4, 0), radius: 0.07, fill: black)
+    circle((0, 3), radius: 0.07, fill: black)
+    content((0, 0), $A$, anchor: "north-east")
+    content((4, 0), $B$, anchor: "north-west")
+    content((0, 3), $C$, anchor: "south-east")
+  }),
+  caption: [Ba điểm $A$, $B$, $C$ với nhãn — kết quả của `draw.circle` và `draw.content`],
+)
+
 *Vẽ đoạn thẳng và tam giác:*
 
 #code-block[
@@ -103,6 +116,18 @@ với gốc ở góc dưới bên trái (mặc định).
 })
 ```
 ]
+
+#figure(
+  canvas(length: 0.5cm, {
+    import draw: *
+    circle((0, 0), radius: 2, stroke: blue)
+    arc((0, 0), start: 0deg, stop: 90deg, radius: 1.5)
+    circle((5.5, 0), radius: 1, fill: rgb("#eafaf1"), stroke: green)
+    content((0, -2.4), text(fill: blue)[Đường tròn xanh], anchor: "north")
+    content((5.5, -1.4), text(fill: green)[Tô xanh lá], anchor: "north")
+  }),
+  caption: [Đường tròn (xanh dương), cung $90°$ bên trong, và hình tròn tô màu xanh lá],
+)
 
 #ghi-nho[
   Khi vẽ hình phức tạp, hãy chia nhỏ thành các phần và test từng phần.
@@ -174,6 +199,17 @@ giải phương trình bậc hai.
 ```
 ]
 
+#figure(
+  canvas(length: 0.7cm, {
+    import draw: *
+    rect((0, 0), (3, 2))
+    rect((4, 0), (6, 2), fill: gray)
+    content((1.5, -0.4), [Rỗng], anchor: "north")
+    content((5, -0.4), [Tô xám], anchor: "north")
+  }),
+  caption: [Hình chữ nhật rỗng (trái) và hình chữ nhật tô màu xám (phải)],
+)
+
 ==== Vẽ cung tròn và đường cong
 
 #code-block[
@@ -187,6 +223,17 @@ giải phương trình bậc hai.
 })
 ```
 ]
+
+#figure(
+  canvas(length: 0.8cm, {
+    import draw: *
+    arc((0, 0), start: 0deg, stop: 90deg, radius: 2)
+    content((1, -0.5), [Cung tròn $90°$], anchor: "north")
+    bezier((4, 0), (7, 2), (4.5, 3), (6.5, -0.5))
+    content((5.5, -0.5), [Đường cong Bezier], anchor: "north")
+  }),
+  caption: [Cung tròn $90°$ (trái) và đường cong Bezier bậc ba (phải)],
+)
 
 === Ví dụ hoàn chỉnh: Tam giác vuông với ký hiệu góc vuông
 
@@ -221,6 +268,23 @@ Bài toán: Vẽ tam giác $"ABC"$ vuông tại $A$ với $"AB" = 4$, $"AC" = 3$
 ```
 ]
 
+#figure(
+  canvas(length: 0.7cm, {
+    import draw: *
+    line((0, 0), (4, 0))
+    line((0, 0), (0, 3))
+    line((4, 0), (0, 3))
+    line((0.5, 0), (0.5, 0.5))
+    line((0, 0.5), (0.5, 0.5))
+    content((0, 0), $A$, anchor: "north-east")
+    content((4, 0), $B$, anchor: "north-west")
+    content((0, 3), $C$, anchor: "south-east")
+    content((2, -0.4), $4$, anchor: "north")
+    content((-0.4, 1.5), $3$, anchor: "east")
+  }),
+  caption: [Tam giác vuông $A B C$ với nhãn đỉnh và độ dài cạnh $A B = 4$, $A C = 3$],
+)
+
 === Vẽ đồ thị hàm số
 
 cetz có thể vẽ đồ thị hàm số bằng cách nối các điểm rời rạc:
@@ -240,6 +304,22 @@ cetz có thể vẽ đồ thị hàm số bằng cách nối các điểm rời 
 })
 ```
 ]
+
+#figure(
+  canvas(length: 0.7cm, {
+    import draw: *
+    line((-2.5, 0), (2.5, 0))
+    line((0, -0.3), (0, 4.5))
+    content((2.7, 0.2), $x$)
+    content((0.2, 4.7), $y$)
+    for i in range(-20, 21) {
+      let x = i * 0.1
+      line((x, x * x), (x + 0.1, (x + 0.1) * (x + 0.1)), stroke: red)
+    }
+    content((1.8, 3.8), $y = x^2$)
+  }),
+  caption: [Đồ thị hàm số $y = x^2$ (parabol) trên đoạn $[-2, 2]$],
+)
 
 === Ví dụ: Đồ thị hàm sin và cos
 

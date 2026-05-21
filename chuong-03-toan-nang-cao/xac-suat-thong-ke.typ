@@ -70,7 +70,7 @@ Dưới đây là một đoạn bảng Z được tạo bằng Typst:
 #table(
   columns: (auto, auto, auto, auto, auto),
   stroke: 0.5pt,
-  table.header[*z*], table.header[*0.00*], table.header[*0.01*], table.header[*0.02*], table.header[*0.03*],
+  [*z*], [*0.00*], [*0.01*], [*0.02*], [*0.03*],
   [0.0], [0.5000], [0.5040], [0.5080], [0.5120],
   [0.1], [0.5398], [0.5438], [0.5478], [0.5517],
   [0.2], [0.5793], [0.5832], [0.5871], [0.5910],
