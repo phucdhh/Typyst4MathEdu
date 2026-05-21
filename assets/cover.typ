@@ -15,7 +15,7 @@
   fill: white,
   weight: "bold",
   size: 36pt,
-  "SOẠN VĂN BẢN TOÁN BẰNG TYPYST"
+  "SOẠN VĂN BẢN TOÁN BẰNG TYPST"
 ))
 
 #v(1em)

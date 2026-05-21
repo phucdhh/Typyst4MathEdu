@@ -245,6 +245,7 @@ Typst có hàm `#table` rất linh hoạt để tạo bảng:
 )
 ```
 ]
+#align(center)[
 #table(
   columns: (auto, auto, auto),
   stroke: 0.5pt,
@@ -252,7 +253,7 @@ Typst có hàm `#table` rất linh hoạt để tạo bảng:
   [Nguyễn Văn Bình], [8.5], [9.0],
   [Trần Thị Cúc], [9.0], [8.5],
 )
-
+]
 #ghi-nho[
   - `columns: (auto, auto, auto)` — ba cột, mỗi cột rộng tự động
   - `stroke: 0.5pt` — đường kẻ dày 0.5 point
@@ -273,13 +274,234 @@ Typst có hàm `#table` rất linh hoạt để tạo bảng:
 )
 ```
 ]
-
+#align(center)[
 #table(
   columns: (auto, auto),
   stroke: 0.5pt,
   [Phương trình], [Nghiệm],
   [$x^2 - 1 = 0$], [$x = ±1$],
   [$x^2 + x - 6 = 0$], [$x = 2 " hoặc " x = -3$],
+)
+]
+
+=== Bảng có tiêu đề cố định
+
+Dùng `table.header(...)` để khai báo hàng tiêu đề. Khi bảng kéo dài sang trang mới, Typst tự động lặp lại hàng tiêu đề — rất hữu ích cho bảng dài trong báo cáo, luận văn:
+
+#code-block[
+```typst
+#figure(
+  table(
+    columns: (1.5fr, auto, auto, auto),
+    stroke: 0.5pt,
+    fill: (_, row) => if row == 0 { rgb("#dce6f1") } else { white },
+    table.header(
+      [*Học sinh*], [*Toán*], [*Lý*], [*Hóa*],
+    ),
+    [Nguyễn Văn An],  [8.5], [9.0], [7.5],
+    [Trần Thị Bình],  [9.0], [8.5], [9.5],
+    [Lê Hoàng Cường], [7.0], [8.0], [8.5],
+    [Phạm Thị Dung],  [9.5], [9.5], [9.0],
+  ),
+  caption: [Bảng điểm học kỳ I],
+)
+```
+]
+#figure(
+  table(
+    columns: (1.5fr, auto, auto, auto),
+    stroke: 0.5pt,
+    fill: (_, row) => if row == 0 { rgb("#dce6f1") } else { white },
+    table.header(
+      [*Học sinh*], [*Toán*], [*Lý*], [*Hóa*],
+    ),
+    [Nguyễn Văn An],  [8.5], [9.0], [7.5],
+    [Trần Thị Bình],  [9.0], [8.5], [9.5],
+    [Lê Hoàng Cường], [7.0], [8.0], [8.5],
+    [Phạm Thị Dung],  [9.5], [9.5], [9.0],
+  ),
+  caption: [Bảng điểm học kỳ I],
+)
+
+=== Bảng gộp ô (Colspan và Rowspan)
+
+Dùng `table.cell(colspan: n)` để gộp `n` ô theo chiều ngang, `table.cell(rowspan: n)` để gộp theo chiều dọc:
+
+*Gộp ô ngang (colspan):*
+
+#code-block[
+```typst
+#table(
+  columns: (2fr, 1.5fr, 1fr),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+  table.cell(colspan: 3, align: center)[*Bảng hằng đẳng thức đáng nhớ*],
+  [*Biểu thức*],  [*Khai triển*],       [*Loại*],
+  [$(a + b)^2$],  [$a^2 + 2a b + b^2$], [Tổng bình phương],
+  [$(a - b)^2$],  [$a^2 - 2a b + b^2$], [Hiệu bình phương],
+  [$(a+b)(a-b)$], [$a^2 - b^2$],        [Hiệu hai bình phương],
+)
+```
+]
+#align(center)[
+#table(
+  columns: (2fr, 1.5fr, 1fr),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+  table.cell(colspan: 3, align: center)[*Bảng hằng đẳng thức đáng nhớ*],
+  [*Biểu thức*],  [*Khai triển*],       [*Loại*],
+  [$(a + b)^2$],  [$a^2 + 2a b + b^2$], [Tổng bình phương],
+  [$(a - b)^2$],  [$a^2 - 2a b + b^2$], [Hiệu bình phương],
+  [$(a+b)(a-b)$], [$a^2 - b^2$],        [Hiệu hai bình phương],
+)
+]
+
+*Gộp ô dọc (rowspan):*
+
+#code-block[
+```typst
+#table(
+  columns: (auto, 1.5fr, auto),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+  [*Môn học*], [*Nội dung*], [*Tín chỉ*],
+  table.cell(rowspan: 2)[Toán], [Giải tích 1],       [3],
+                                [Đại số tuyến tính], [3],
+  table.cell(rowspan: 2)[Lý],   [Cơ học đại cương],  [2],
+                                [Nhiệt học],          [2],
+)
+```
+]
+#align(center)[
+#table(
+  columns: (auto, 1.5fr, auto),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+  [*Môn học*], [*Nội dung*], [*Tín chỉ*],
+  table.cell(rowspan: 2)[Toán], [Giải tích 1],       [3],
+                                [Đại số tuyến tính], [3],
+  table.cell(rowspan: 2)[Lý],   [Cơ học đại cương],  [2],
+                                [Nhiệt học],          [2],
+)
+]
+
+#chu-y[
+  Khi dùng `rowspan`, các ô bị chiếm bởi cell đó *không cần khai báo lại*.
+  Typst tự động điền ô tiếp theo vào cột kế bên.
+]
+
+=== Bảng màu xen kẽ
+
+Bảng màu xen kẽ giúp người đọc dễ theo dõi từng hàng khi bảng có nhiều dữ liệu.
+Dùng `calc.odd(row)` để tô màu các hàng lẻ:
+
+#code-block[
+```typst
+#table(
+  columns: (2fr, 1fr, 1fr),
+  stroke: 0.5pt,
+  fill: (_, row) => {
+    if row == 0 { rgb("#d5e8f3") }
+    else if calc.odd(row) { rgb("#eaf4fb") }
+    else { white }
+  },
+  table.header([*Công thức*], [*Tên gọi*], [*Lĩnh vực*]),
+  [$a^2 + b^2 = c^2$],       [Pytago],              [Hình học],
+  [$S = pi r^2$],             [Diện tích hình tròn], [Hình học],
+  [$(a+b)^2 = a^2 + 2 a b + b^2$], [Hằng đẳng thức],      [Đại số],
+  [$e^(i pi) + 1 = 0$],           [Euler],               [Giải tích],
+  [$sin^2 x + cos^2 x = 1$],      [Pytago lượng giác],   [Lượng giác],
+)
+```
+]
+#table(
+  columns: (2fr, 1fr, 1fr),
+  stroke: 0.5pt,
+  fill: (_, row) => {
+    if row == 0 { rgb("#d5e8f3") }
+    else if calc.odd(row) { rgb("#eaf4fb") }
+    else { white }
+  },
+  table.header([*Công thức*], [*Tên gọi*], [*Lĩnh vực*]),
+  [$a^2 + b^2 = c^2$],       [Pytago],              [Hình học],
+  [$S = pi r^2$],             [Diện tích hình tròn], [Hình học],
+  [$(a+b)^2 = a^2 + 2 a b + b^2$], [Hằng đẳng thức],      [Đại số],
+  [$e^(i pi) + 1 = 0$],           [Euler],               [Giải tích],
+  [$sin^2 x + cos^2 x = 1$],      [Pytago lượng giác],   [Lượng giác],
+)
+
+=== Bảng căn chỉnh nội dung cột
+
+Tham số `align` nhận một mảng để căn chỉnh từng cột riêng: `left`, `center`, hoặc `right`.
+Cột số liệu nên căn phải để dễ so sánh giá trị:
+
+#code-block[
+```typst
+#table(
+  columns: (2fr, 1fr, 1fr),
+  align: (left, center, right),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+  table.header([*Biểu thức*], [*Loại*], [*Giá trị gần đúng*]),
+  [$sin(pi / 6)$],           [Lượng giác], [0.5000],
+  [$log_10 1000$],           [Logarit],    [3.0000],
+  [$integral_0^1 x dif x$], [Tích phân],  [0.5000],
+  [$lim_(n->oo)(1+1/n)^n$], [Giới hạn],   [2.7183],
+)
+```
+]
+#align(center)[
+#table(
+  columns: (2fr, 1fr, 1fr),
+  align: (left, center, right),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+  table.header([*Biểu thức*], [*Loại*], [*Giá trị gần đúng*]),
+  [$sin(pi / 6)$],           [Lượng giác], [0.5000],
+  [$log_10 1000$],           [Logarit],    [3.0000],
+  [$integral_0^1 x dif x$], [Tích phân],  [0.5000],
+  [$lim_(n->oo)(1+1/n)^n$], [Giới hạn],   [2.7183],
+)
+]
+
+=== Bảng kiểu học thuật (Booktabs)
+
+Trong bài báo và luận văn khoa học, bảng thường chỉ có đường kẻ ngang — không có
+viền dọc. Dùng `stroke: none` kết hợp `table.hline()`:
+
+#code-block[
+```typst
+#figure(
+  table(
+    columns: (2fr, 1fr, 1fr),
+    stroke: none,
+    table.hline(stroke: 1pt),
+    table.header([*Thuật toán*], [*Thời gian*], [*Bộ nhớ*]),
+    table.hline(stroke: 0.5pt),
+    [Sắp xếp nổi bọt], [$O(n^2)$],     [$O(1)$],
+    [Sắp xếp trộn],    [$O(n log n)$], [$O(n)$],
+    [Sắp xếp nhanh],   [$O(n log n)$], [$O(log n)$],
+    [Sắp xếp đếm],     [$O(n + k)$],   [$O(k)$],
+    table.hline(stroke: 1pt),
+  ),
+  caption: [So sánh độ phức tạp các thuật toán sắp xếp],
+)
+```
+]
+#figure(
+  table(
+    columns: (2fr, 1fr, 1fr),
+    stroke: none,
+    table.hline(stroke: 1pt),
+    table.header([*Thuật toán*], [*Thời gian*], [*Bộ nhớ*]),
+    table.hline(stroke: 0.5pt),
+    [Sắp xếp nổi bọt], [$O(n^2)$],     [$O(1)$],
+    [Sắp xếp trộn],    [$O(n log n)$], [$O(n)$],
+    [Sắp xếp nhanh],   [$O(n log n)$], [$O(log n)$],
+    [Sắp xếp đếm],     [$O(n + k)$],   [$O(k)$],
+    table.hline(stroke: 1pt),
+  ),
+  caption: [So sánh độ phức tạp các thuật toán sắp xếp],
 )
 
 === Tham chiếu chéo (Cross-reference)
@@ -308,7 +530,7 @@ Typst tự động cập nhật số thứ tự khi bạn thêm/xóa nội dung.
   - Typst dùng cú pháp kiểu Markdown cho định dạng cơ bản
   - `=` đến `======` tạo tiêu đề 6 cấp
   - `-` cho danh sách không thứ tự, `+` cho có thứ tự
-  - `#table(...)` tạo bảng mạnh mẽ, hỗ trợ công thức Toán
+  - `#table(...)` tạo bảng nhiều dạng: có tiêu đề cố định, gộp ô, màu xen kẽ, căn chỉnh cột, kiểu học thuật
   - `#figure(image(...), caption: ...)` cho hình ảnh chuyên nghiệp
   - `<label>` và `@label` cho tham chiếu chéo tự động
 ]

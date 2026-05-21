@@ -1,9 +1,8 @@
 #import "../assets/style.typ": *
 
-= Chương 3: Toán học nâng cao
+= Chương 3: SOẠN CÔNG THỨC TOÁN NÂNG CAO
 
-Chương này đưa bạn từ cú pháp cơ bản của Typst vào thế giới Toán học
-thực sự: ma trận, hệ phương trình, giới hạn, đạo hàm, tích phân,
+Chương này đưa bạn từ cú pháp cơ bản của Typst vào thế giới Toán học thực sự: ma trận, hệ phương trình, giới hạn, đạo hàm, tích phân,
 hình học và xác suất thống kê. Đây là những cấu trúc mà giáo viên Toán
 và sinh viên sẽ dùng hàng ngày khi soạn đề, lời giải và giáo trình.
 

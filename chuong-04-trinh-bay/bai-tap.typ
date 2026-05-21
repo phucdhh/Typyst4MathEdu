@@ -1,6 +1,6 @@
 #import "../assets/style.typ": *
 
-= Chương 4: Trình bày tài liệu Toán chuyên nghiệp
+= Chương 4: TRÌNH BÀY VĂN VẢN TOÁN CHUYÊN NGHIỆP
 
 Ba chương đầu đã trang bị cho bạn đầy đủ công cụ để viết công thức Toán học.
 Chương này bước sang một giai đoạn khác: làm thế nào để *trình bày* những nội dung

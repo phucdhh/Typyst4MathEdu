@@ -1,6 +1,6 @@
 #import "../assets/style.typ": *
 
-= Chương 5: Tự động hóa & Lập trình với Typst
+= Chương 5: TỰ ĐỘNG HOÁ VÀ LẬP TRÌNH VỚI TYPST
 
 Đây là chương làm cho Typst thực sự khác biệt so với LaTeX và Word.
 Trong khi Word chỉ là trình soạn thảo văn bản và LaTeX có hệ thống macro
