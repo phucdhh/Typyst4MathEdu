@@ -2,7 +2,15 @@
 
 #include "assets/cover.typ"
 
-#set page(paper: "a4", margin: (top: 2.5cm, bottom: 2.5cm, left: 2cm, right: 2cm))
+#set page(
+  paper: "a4",
+  margin: (top: 2.5cm, bottom: 2.5cm, left: 2cm, right: 2cm),
+  footer: context {
+    set text(size: 8pt, fill: note-color)
+    align(right, counter(page).display())
+  },
+  numbering: "1",
+)
 
 #pagebreak()
 
@@ -101,6 +109,15 @@ Làm việc nhóm với Git. Đóng gói và chia sẻ template Typst.
 
 // Reset heading counter về 0 để Chương 1 bắt đầu từ "1"
 #counter(heading).update(0)
+
+// Bật đánh số cho heading từ đây (các chương)
+#set heading(numbering: (..nums) => {
+  let ns = nums.pos()
+  if ns.len() == 1 { str(ns.at(0)) }
+  else if ns.len() == 2 { str(ns.at(0)) + "." + str(ns.at(1)) }
+  else if ns.len() == 3 { str(ns.at(0)) + "." + str(ns.at(1)) + "." + str(ns.at(2)) }
+  else { none }
+})
 
 // ============================================
 // Chương 1

@@ -1,36 +1,26 @@
 #import "../assets/style.typ": *
 
-= Chương 2: Cú pháp cơ bản
+= Chương 2: CÚ PHÁP CƠ BẢN TRONG TYPST
 
-Sau chương đầu, bạn đã cài đặt được Typst và thấy một tài liệu đơn giản chạy
-được. Chương này sẽ đi sâu vào ngữ pháp của Typst: cách làm việc với văn bản,
-định dạng chữ, tiêu đề, danh sách, bảng biểu — tất cả những gì cần thiết để
-viết một tài liệu giáo dục hoàn chỉnh.
+Sau chương đầu, bạn đã cài đặt được Typst và thấy một tài liệu đơn giản chạy được. Chương này sẽ đi sâu vào ngữ pháp của Typst: cách làm việc với văn bản, định dạng chữ, tiêu đề, danh sách, bảng biểu — tất cả những gì cần thiết để viết một tài liệu giáo dục hoàn chỉnh.
 
-Điểm nhấn quan trọng: mỗi ví dụ trong chương này đều có hai phần — *code bạn gõ*
-và *kết quả bạn thấy trong PDF* — đặt cạnh nhau để so sánh trực tiếp.
+Điểm nhấn quan trọng: mỗi ví dụ trong chương này đều có hai phần — *code bạn gõ* và *kết quả bạn thấy trong PDF* — đặt cạnh nhau để so sánh trực tiếp.
 
 #ghi-nho[
-  *Mục tiêu chương:* Thành thạo cú pháp văn bản và định dạng cơ bản;
-  viết công thức Toán *inline* và *block*; tạo bảng biểu, chèn hình ảnh
-  và thiết lập bố cục trang.
+  *Mục tiêu chương:* Thành thạo cú pháp văn bản và định dạng cơ bản; viết công thức Toán *inline* và *block*; tạo bảng biểu, chèn hình ảnh và thiết lập bố cục trang.
 ]
 
 == Văn bản và định dạng cơ bản
 
-Typst coi văn bản là thành phần mặc định — bạn không cần thẻ đặc biệt nào
-để bắt đầu viết chữ. Điều này khác với LaTeX, nơi bạn phải viết `\begin{document}`
-trước khi có bất kỳ văn bản nào hiện ra.
+Typst coi văn bản là thành phần mặc định — bạn không cần thẻ đặc biệt nào để bắt đầu viết chữ. Điều này khác với LaTeX, nơi bạn phải viết `\begin{document}` trước khi có bất kỳ văn bản nào hiện ra.
 
 === Đoạn văn và xuống dòng
 
 Trong Typst, quy tắc xuống dòng khác với những gì bạn hay dùng trong Word:
 
-1. *Xuống dòng đơn* (soft break) — nhấn Enter một lần. Văn bản vẫn thuộc
-   cùng một đoạn. Typst tự động nối thành dòng liên tục và tự ngắt khi cần.
+1. *Xuống dòng đơn* (soft break) — nhấn Enter một lần. Văn bản vẫn thuộc cùng một đoạn. Typst tự động nối thành dòng liên tục và tự ngắt khi cần.
 
-2. *Xuống đoạn* (paragraph break) — để trống một dòng giữa hai đoạn.
-   Đây mới là cách tạo đoạn văn mới trong Typst.
+2. *Xuống đoạn* (paragraph break) — để trống một dòng giữa hai đoạn. Đây mới là cách tạo đoạn văn mới trong Typst.
 
 #code-preview(
   ```typst
@@ -70,7 +60,7 @@ Bảng tóm tắt các kiểu chữ thường dùng trong tài liệu Toán họ
 
 #figure(
   table(
-    columns: (1fr, 1fr, 1fr, 1.5fr),
+    columns: (0.7fr, 0.8fr, 0.5fr, 1.0fr),
     stroke: 0.5pt,
     fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
     table.header([*Cú pháp*], [*Kết quả*], [*Phím tắt*], [*Khi nào dùng*]),

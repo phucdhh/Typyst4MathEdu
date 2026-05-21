@@ -1,6 +1,6 @@
 #import "../assets/style.typ": *
 
-== Tài liệu Typst đầu tiên — Hello Toán!
+== Tài liệu Typst đầu tiên
 
 Giờ là lúc bắt tay viết! Phần này sẽ hướng dẫn bạn từng bước tạo tài liệu Typst
 đầu tiên có chứa công thức Toán học. Bạn sẽ thấy rõ sự khác biệt giữa code bạn gõ
@@ -41,11 +41,11 @@ $ a^2 + b^2 = c^2 $
     stroke: 0.5pt,
     fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
     table.header([*Cú pháp*], [*Ý nghĩa*]),
-    [`= Định lý Pythagoras`], [`=` tạo tiêu đề cấp 1. Thêm dấu `=` để vào cấp sâu hơn: `==` là mục lớn, `===` là mục con.],
+    [`= Định lý Pythagoras`], [Dấu `=` giúp tạo tiêu đề cấp 1. Chúng ta thêm các dấu `=` nữa để vào cấp sâu hơn: `==` là mục lớn, `===` là mục con.],
     [`Trong một tam giác...`], [Văn bản thông thường. Đoạn văn mới bắt đầu sau một dòng trống.],
-    [`$ a^2 + b^2 = c^2 $`], [Công thức block (độc lập, căn giữa). Dấu `$` có *khoảng trắng* hai bên. `a^2` = $a^2$.],
+    [`$ a^2 + b^2 = c^2 $`], [Công thức Toán (độc lập, căn giữa). Dấu `$` cần có *khoảng trắng* hai bên. `a^2` là mã khi gõ, còn $a^2$ là kết quả hiển thị.],
   ),
-  caption: [Giải thích từng cú pháp trong ví dụ Hello Toán],
+  caption: [Giải thích từng cú pháp trong ví dụ đầu tiên],
 )
 
 === Biên dịch lần đầu
@@ -74,13 +74,11 @@ typst watch hello.typ
 ```
 ]
 
-Kết hợp với trình xem PDF hỗ trợ auto-refresh (Skim trên macOS, SumatraPDF trên Windows),
-bạn thấy kết quả gần như ngay lập tức sau mỗi lần gõ phím.
+Kết hợp với trình xem PDF hỗ trợ auto-refresh (Skim trên macOS, SumatraPDF trên Windows), bạn thấy kết quả gần như ngay lập tức sau mỗi lần gõ phím.
 
 === Ví dụ đầy đủ: Phương trình bậc hai
 
-Cùng thử một ví dụ phức tạp hơn để thấy sức mạnh của Typst trong việc
-trình bày Toán học. Hãy gõ đoạn code dưới đây và biên dịch:
+Cùng thử một ví dụ phức tạp hơn để thấy sức mạnh của Typst trong việc trình bày văn bản Toán. Hãy gõ đoạn code dưới đây và biên dịch:
 
 #code-preview(
   ```typst
@@ -92,7 +90,7 @@ $ a x^2 + b x + c = 0, quad a != 0 $
 
 trong đó $a$, $b$, $c$ là các hệ số thực.
 
-*Công thức nghiệm (Vieta):*
+*Công thức nghiệm (Viet):*
 
 $ x_(1,2) = frac(-b ± sqrt(b^2 - 4 a c), 2 a) $
 
@@ -111,7 +109,7 @@ Biểu thức $Delta = b^2 - 4 a c$ gọi là *biệt thức*.
     $ a x^2 + b x + c = 0, quad a != 0 $
     trong đó $a$, $b$, $c$ là các hệ số thực.
 
-    *Công thức nghiệm (Vieta):*
+    *Công thức nghiệm (Viet):*
     $ x_(1,2) = frac(-b plus.minus sqrt(b^2 - 4 a c), 2 a) $
 
     Biểu thức $Delta = b^2 - 4 a c$ gọi là *biệt thức*.
@@ -132,19 +130,12 @@ Biểu thức $Delta = b^2 - 4 a c$ gọi là *biệt thức*.
 
 === Bài tập thực hành
 
-*Bài 1.* Tạo file `gioi-thieu.typ` với nội dung giới thiệu bản thân:
-họ tên, trường/lớp, chuyên ngành. Yêu cầu:
-dùng ít nhất 2 cấp tiêu đề, có 1 danh sách, có 1 công thức Toán.
+*Bài 1.* Tạo file `gioi-thieu.typ` với nội dung giới thiệu bản thân: họ tên, trường/lớp, chuyên ngành. Yêu cầu: dùng ít nhất 2 cấp tiêu đề, có 1 danh sách, có 1 công thức Toán.
 
-*Bài 2.* Gõ lại ví dụ "Phương trình bậc hai" ở trên và biên dịch.
-Thử thay đổi dấu hiệu `±` bằng cách gõ `plus.minus` (tên trong Typst),
-sau đó biên dịch lại và kiểm tra xem có gì thay đổi không.
+*Bài 2.* Gõ lại ví dụ "Phương trình bậc hai" ở trên và biên dịch. Thử thay đổi dấu hiệu `±` bằng cách gõ `plus.minus` (tên trong Typst), sau đó biên dịch lại và kiểm tra xem có gì thay đổi không.
 
-*Bài 3.* Cố ý tạo một lỗi nhỏ trong file Typst (ví dụ: quên đóng dấu `$`,
-hoặc viết `sqr(x)` thay vì `sqrt(x)`). Quan sát thông báo lỗi mà Typst hiển thị.
-Bạn có đọc hiểu được thông báo lỗi không?
+*Bài 3.* Cố ý tạo một lỗi nhỏ trong file Typst (ví dụ: quên đóng dấu `$`, hoặc viết `sqr(x)` thay vì `sqrt(x)`). Quan sát thông báo lỗi mà Typst hiển thị. Bạn có đọc hiểu được thông báo lỗi không?
 
-*Bài 4.* Vào `typst.app`, đăng ký tài khoản và viết lại nội dung Bài 2
-trên editor trực tuyến. So sánh trải nghiệm làm việc trên web với CLI.
+*Bài 4.* Vào `typst.app`, đăng ký tài khoản và viết lại nội dung Bài 2 trên editor trực tuyến. So sánh trải nghiệm làm việc trên web với CLI.
 
 #pagebreak()
