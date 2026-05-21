@@ -163,6 +163,267 @@ Bạn có thể tùy chỉnh toàn bộ giao diện của hộp:
 ```
 ]
 
+== Định lý, Bổ đề, Hệ quả và Ví dụ có đánh số
+
+=== Tổng quan về các loại mệnh đề toán học
+
+Tài liệu Toán học học thuật phân chia nội dung thành nhiều loại mệnh đề
+với vai trò rõ ràng:
+
+#table(
+  columns: (auto, 1fr),
+  stroke: 0.5pt,
+  fill: (_, row) => if row == 0 { rgb("#eaf4fb") } else { white },
+  table.header([*Loại*], [*Vai trò*]),
+  [*Định lý* (Theorem)], [Kết quả quan trọng đã được chứng minh],
+  [*Bổ đề* (Lemma)], [Kết quả phụ trợ, dùng để chứng minh định lý],
+  [*Hệ quả* (Corollary)], [Kết quả suy ra trực tiếp từ định lý],
+  [*Mệnh đề* (Proposition)], [Kết quả nhỏ hơn định lý, đã chứng minh],
+  [*Nhận xét* (Remark)], [Quan sát, bình luận không cần chứng minh],
+  [*Ví dụ* (Example)], [Minh họa cụ thể cho khái niệm hoặc định lý],
+  [*Định nghĩa* (Definition)], [Phát biểu chính xác một khái niệm],
+)
+
+=== Định lý và Bổ đề có đánh số tự động
+
+Để đánh số tự động, bạn dùng `counter` của Typst kết hợp với `showybox`:
+
+#code-block[
+```typst
+#import "@preview/showybox:2.0.4": showybox
+
+// Bộ đếm dùng chung cho định lý, bổ đề, hệ quả
+#let dem-dinh-ly = counter("dinh-ly")
+
+#let dinh-ly-so(body) = {
+  dem-dinh-ly.step()
+  showybox(
+    title: [Định lý #dem-dinh-ly.display()],
+    frame: (
+      title-color: rgb("#1a5276"),
+      border-color: rgb("#1a5276"),
+      thickness: 1.5pt,
+      radius: 4pt,
+    ),
+    title-style: (color: white, weight: "bold"),
+  )[#body]
+}
+
+#let bo-de-so(body) = {
+  dem-dinh-ly.step()
+  showybox(
+    title: [Bổ đề #dem-dinh-ly.display()],
+    frame: (
+      title-color: rgb("#1f618d"),
+      border-color: rgb("#1f618d"),
+      thickness: 1.5pt,
+      radius: 4pt,
+    ),
+    title-style: (color: white, weight: "bold"),
+  )[#body]
+}
+
+#let he-qua-so(body) = {
+  dem-dinh-ly.step()
+  showybox(
+    title: [Hệ quả #dem-dinh-ly.display()],
+    frame: (
+      title-color: rgb("#2e86c1"),
+      border-color: rgb("#2e86c1"),
+      thickness: 1.5pt,
+      radius: 4pt,
+    ),
+    title-style: (color: white, weight: "bold"),
+  )[#body]
+}
+```
+]
+
+Bộ đếm `dem-dinh-ly` tăng liên tục qua các loại mệnh đề khác nhau,
+đảm bảo thứ tự số nhất quán (ví dụ: Định lý 1, Bổ đề 2, Hệ quả 3...).
+Nếu muốn đánh số riêng cho từng loại, tạo mỗi loại một counter riêng.
+
+=== Đánh số theo chương
+
+Trong sách giáo khoa, định lý thường đánh số theo chương (ví dụ: Định lý 2.3).
+Cách thực hiện trong Typst:
+
+#code-block[
+```typst
+#let dinh-ly-so(chuong, body) = {
+  dem-dinh-ly.step()
+  let so = context (str(chuong) + "." + dem-dinh-ly.display())
+  showybox(
+    title: [Định lý #so],
+    frame: (
+      title-color: rgb("#1a5276"),
+      border-color: rgb("#1a5276"),
+      thickness: 1.5pt,
+      radius: 4pt,
+    ),
+    title-style: (color: white, weight: "bold"),
+  )[#body]
+}
+
+// Dùng:
+#dinh-ly-so(2)[
+  Mọi số nguyên tố lớn hơn 2 đều là số lẻ.
+]
+// Hiển thị: Định lý 2.1
+```
+]
+
+=== Môi trường chứng minh
+
+Sau mỗi định lý, cần trình bày phần chứng minh. Quy ước phổ biến là dùng
+ký hiệu □ (hoặc ■) ở cuối để đánh dấu kết thúc chứng minh:
+
+#code-block[
+```typst
+#let chung-minh(body) = {
+  block(inset: (left: 1.2em))[
+    _Chứng minh._ #body #h(1fr) $square$
+  ]
+}
+
+// Dùng:
+#dinh-ly[
+  *Định lý Euclid.* Có vô số số nguyên tố.
+]
+
+#chung-minh[
+  Giả sử ngược lại chỉ có hữu hạn số nguyên tố $p_1, p_2, ..., p_n$.
+  Xét số $N = p_1 dot p_2 dot ... dot p_n + 1$.
+  Số $N$ không chia hết cho bất kỳ $p_i$ nào,
+  do đó $N$ là số nguyên tố hoặc có ước nguyên tố không trong danh sách —
+  mâu thuẫn.
+]
+```
+]
+
+=== Ví dụ đầy đủ: Một đoạn sách giáo khoa
+
+Dưới đây là ví dụ trình bày một đoạn lý thuyết hoàn chỉnh theo phong cách
+sách giáo khoa đại học, với định lý, bổ đề, chứng minh và ví dụ minh họa:
+
+#code-block[
+```typst
+#let dem = counter("thm")
+#let thm(ten, body) = {
+  dem.step()
+  showybox(title: [#ten #dem.display()],
+    frame: (title-color: blue.darken(40%),
+            border-color: blue.darken(40%),
+            thickness: 1.5pt, radius: 4pt),
+    title-style: (color: white, weight: "bold"),
+  )[#body]
+}
+#let cm(body) = block(inset: (left: 1em))[
+  _Chứng minh._ #body #h(1fr) $square$
+]
+
+#thm("Định lý")[
+  Nếu $f$ liên tục trên $[a,b]$ thì $f$ khả tích trên $[a,b]$.
+]
+#cm[
+  Do $f$ liên tục trên đoạn đóng có hạn nên $f$ bị chặn
+  và đồng đều liên tục. Từ đó suy ra $f$ khả tích Riemann. $qed$
+]
+
+#thm("Hệ quả")[
+  Mọi đa thức đều khả tích trên mọi đoạn hữu hạn.
+]
+
+#thm("Ví dụ")[
+  Hàm $f(x) = |x|$ khả tích trên $[-1, 1]$ vì nó liên tục.
+  $integral_(-1)^1 |x| dif x = 1$.
+]
+```
+]
+
+Kết quả trông như sau:
+
+#let dem-vd = counter("thm-vd")
+#let thm-vd(ten, body) = {
+  dem-vd.step()
+  showybox(
+    title: context [#ten #dem-vd.display()],
+    frame: (
+      title-color: rgb("#1a5276"),
+      border-color: rgb("#1a5276"),
+      thickness: 1.5pt,
+      radius: 4pt,
+    ),
+    title-style: (color: white, weight: "bold"),
+  )[#body]
+}
+
+#thm-vd("Định lý")[
+  Nếu $f$ liên tục trên $[a,b]$ thì $f$ khả tích trên $[a,b]$.
+]
+
+#block(inset: (left: 1em))[
+  _Chứng minh._ Do $f$ liên tục trên đoạn đóng có hạn nên $f$ bị chặn
+  và đồng đều liên tục. Từ đó suy ra $f$ khả tích Riemann. #h(1fr) $square$
+]
+
+#thm-vd("Hệ quả")[
+  Mọi đa thức đều khả tích trên mọi đoạn hữu hạn.
+]
+
+#thm-vd("Ví dụ")[
+  Hàm $f(x) = |x|$ khả tích trên $[-1, 1]$ vì nó liên tục.
+  $integral_(-1)^1 |x| dif x = 1$.
+]
+
+=== Định nghĩa và Nhận xét
+
+Định nghĩa thường được trình bày với kiểu chữ và màu riêng biệt để
+nổi bật, còn Nhận xét thường nhỏ hơn và không cần hộp:
+
+#code-block[
+```typst
+#let dinh-nghia(body) = showybox(
+  title: "Định nghĩa",
+  frame: (
+    title-color: rgb("#117a65"),
+    border-color: rgb("#117a65"),
+    body-color: rgb("#e8f8f5"),
+    thickness: 1.5pt,
+    radius: 4pt,
+  ),
+  title-style: (color: white, weight: "bold"),
+)[#body]
+
+#let nhan-xet(body) = {
+  v(0.3em)
+  block(inset: (left: 1em), stroke: (left: 2pt + gray))[
+    _Nhận xét._ #body
+  ]
+  v(0.3em)
+}
+
+// Dùng:
+#dinh-nghia[
+  Hàm $f: D -> RR$ được gọi là *liên tục tại điểm* $x_0 in D$ nếu
+  $ lim_(x -> x_0) f(x) = f(x_0) $
+]
+
+#nhan-xet[
+  Điều kiện liên tục gồm ba phần: giới hạn tồn tại,
+  hàm xác định tại $x_0$, và hai giá trị bằng nhau.
+]
+```
+]
+
+#ghi-nho[
+  *Quy ước viết định lý chuyên nghiệp:*
+  - Dùng *in đậm* cho tên định lý/bổ đề, *in nghiêng* cho chứng minh
+  - Kết thúc chứng minh bằng $square$ hoặc $qed$ (Q.E.D.)
+  - Đánh số thống nhất trong toàn tài liệu (không đặt lại từ đầu mỗi mục)
+  - Dùng `#label("thm:pythagoras")` để đặt nhãn và `@thm:pythagoras` để tham chiếu
+]
+
 == Template bài tập tự luyện
 
 === Thiết kế phiếu bài tập
