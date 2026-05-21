@@ -74,8 +74,7 @@ Bảng tóm tắt các kiểu chữ thường dùng trong tài liệu Toán họ
 
 === Tiêu đề các cấp
 
-Số dấu `=` quyết định cấp của tiêu đề, từ 1 đến 6. Typst tự động đánh số
-và định dạng mỗi cấp theo style đã cấu hình:
+Số dấu `=` quyết định cấp của tiêu đề, từ 1 đến 6. Typst tự động đánh số và định dạng mỗi cấp theo style đã cấu hình:
 
 #code-preview(
   ```typst
@@ -97,8 +96,7 @@ và định dạng mỗi cấp theo style đã cấu hình:
 
 #chu-y[
   Sau dấu `=` phải có *ít nhất một khoảng trắng*. Typst phân biệt
-  `= Tiêu đề` (tiêu đề cấp 1) với `=x` (phép so sánh bằng trong code mode).
-  Trong sách này, chúng tôi dùng tối đa 3 cấp tiêu đề có đánh số.
+  `= Tiêu đề` (tiêu đề cấp 1) với `=x` (phép so sánh bằng trong code mode). Trong sách này, chúng tôi dùng tối đa 3 cấp tiêu đề có đánh số.
 ]
 
 === Danh sách (List)
@@ -142,7 +140,7 @@ Dùng `//` cho chú thích — sẽ *không xuất hiện* trong file PDF:
 ```typst
 // Đây là chú thích — chỉ người viết nhìn thấy
 $ a^2 + b^2 = c^2 $ // Công thức Pythagoras
-```
+```  
 ]
 
 Một số ký tự có ý nghĩa đặc biệt và cần escape bằng dấu `\`:
@@ -241,17 +239,16 @@ Typst có hàm `#table` rất linh hoạt để tạo bảng:
 #table(
   columns: (auto, auto, auto),
   stroke: 0.5pt,
-  table.header[*Họ tên*], table.header[*Điểm Toán*], table.header[*Điểm Lý*],
+  [*Họ tên*], [*Điểm Toán*], [*Điểm Lý*],
   [Nguyễn Văn Bình], [8.5], [9.0],
   [Trần Thị Cúc], [9.0], [8.5],
 )
 ```
 ]
-
 #table(
   columns: (auto, auto, auto),
   stroke: 0.5pt,
-  table.header[*Họ tên*], table.header[*Điểm Toán*], table.header[*Điểm Lý*],
+  [*Họ tên*], [*Điểm Toán*], [*Điểm Lý*],
   [Nguyễn Văn Bình], [8.5], [9.0],
   [Trần Thị Cúc], [9.0], [8.5],
 )
