@@ -2,111 +2,121 @@
 
 = Chương 3: Toán học nâng cao
 
+Chương này đưa bạn từ cú pháp cơ bản của Typst vào thế giới Toán học
+thực sự: ma trận, hệ phương trình, giới hạn, đạo hàm, tích phân,
+hình học và xác suất thống kê. Đây là những cấu trúc mà giáo viên Toán
+và sinh viên sẽ dùng hàng ngày khi soạn đề, lời giải và giáo trình.
+
 #ghi-nho[
   *Mục tiêu chương:* Soạn thảo thành thạo các cấu trúc Toán học từ
   THPT đến Đại học: ma trận, định thức, hệ phương trình, giới hạn,
-  đạo hàm, tích phân, hình học, và xác suất thống kê.
+  đạo hàm, tích phân, hình học và xác suất thống kê.
 ]
 
 == Đại số tuyến tính
 
+Đại số tuyến tính là nền tảng của nhiều ngành khoa học hiện đại — từ
+học máy (machine learning) đến giải tích số, từ mã hóa đến đồ họa máy tính.
+Phần này trình bày cách soạn thảo các cấu trúc Đại số tuyến tính bằng Typst.
+
 === Ma trận — Cú pháp cơ bản
 
-Ma trận là cấu trúc Toán học quan trọng bậc nhất trong Đại số tuyến tính.
-Typst hỗ trợ ma trận với cú pháp rất trực quan thông qua hàm `mat()`:
+Ma trận được tạo bằng hàm `mat()`, trong đó dấu phẩy phân tách các phần tử
+trong một hàng, và dấu chấm phẩy `;` phân tách các hàng:
 
-#code-block[
-```typst
-$ A = mat(1, 2; 3, 4) $
-```
-]
-
+#code-preview(
+  ```typst
 $ A = mat(1, 2; 3, 4) $
 
-Trong đó:
-- Dấu phẩy `,` phân cách các phần tử trong cùng một hàng
-- Dấu chấm phẩy `;` phân cách các hàng
-- Ma trận được bao bởi ngoặc tròn `( )` (mặc định)
+$ B = mat(1, 2, 3; 4, 5, 6; 7, 8, 9) $
+  ```,
+  [
+    $ A = mat(1, 2; 3, 4) $
+
+    $ B = mat(1, 2, 3; 4, 5, 6; 7, 8, 9) $
+  ]
+)
 
 === Delimiter — thay đổi ngoặc bao ma trận
 
-Bạn có thể thay đổi ngoặc bao ma trận bằng tham số `delim`:
+Tùy theo ngữ cảnh, bạn có thể thay đổi loại ngoặc bao quanh ma trận:
 
-#code-block[
-```typst
-$ A = mat(delim: "[", 1, 2; 3, 4) $   // ngoặc vuông
-$ A = mat(delim: "{", 1, 2; 3, 4) $   // ngoặc nhọn
-$ A = mat(delim: "|", 1, 2; 3, 4) $   // định thức
-$ A = mat(delim: "(", 1, 2; 3, 4) $   // ngoặc tròn (mặc định)
-```
-]
+#code-preview(
+  ```typst
+$mat(delim: "[", 1, 2; 3, 4)$   // ngoặc vuông
+$mat(delim: "{", 1, 2; 3, 4)$   // ngoặc nhọn
+$mat(delim: "|", 1, 2; 3, 4)$   // trị tuyệt đối (định thức)
+  ```,
+  [
+    $mat(delim: "[", 1, 2; 3, 4)$   (ngoặc vuông — phổ biến nhất)
 
-- Ngoặc vuông `[...]`: $mat(delim: "[", 1, 2; 3, 4)$
-- Ngoặc nhọn `{...}`: $mat(delim: "{", 1, 2; 3, 4)$
-- Trị tuyệt đối `|...|`: $mat(delim: "|", 1, 2; 3, 4)$
+    $mat(delim: "{", 1, 2; 3, 4)$   (ngoặc nhọn)
+
+    $mat(delim: "|", 1, 2; 3, 4)$   (ký hiệu định thức)
+  ]
+)
 
 === Ma trận cỡ lớn
 
-Với ma trận cỡ lớn, bạn dùng các loại chấm lược để biểu diễn
+Với ma trận cỡ lớn, dùng các loại chấm lược để biểu diễn
 các phần tử không viết ra:
 
-#code-block[
-```typst
+#code-preview(
+  ```typst
 $ A = mat(
-  1, 0, dots, 0;
-  0, 1, dots, 0;
+  a_(1 1), a_(1 2), dots, a_(1 n);
+  a_(2 1), a_(2 2), dots, a_(2 n);
   dots.v, dots.v, dots.c, dots.v;
-  0, 0, dots, 1
+  a_(m 1), a_(m 2), dots, a_(m n)
 ) $
-```
-]
-
-$ A = mat(
-  1, 0, dots, 0;
-  0, 1, dots, 0;
-  dots.v, dots.v, dots.c, dots.v;
-  0, 0, dots, 1
-)$
+  ```,
+  [
+    $ A = mat(
+      a_(1 1), a_(1 2), dots, a_(1 n);
+      a_(2 1), a_(2 2), dots, a_(2 n);
+      dots.v, dots.v, dots.c, dots.v;
+      a_(m 1), a_(m 2), dots, a_(m n)
+    ) $
+  ]
+)
 
 === Ma trận đặc biệt
 
-*Ma trận đơn vị* cấp $n$, ký hiệu $I_n$:
-
+#code-preview(
+  ```typst
+// Ma trận đơn vị cấp 3
 $ I_3 = mat(1, 0, 0; 0, 1, 0; 0, 0, 1) $
 
-*Ma trận không* cấp $m times n$, ký hiệu $O_(m times n)$:
+// Ma trận không
+$ O_(2 times 3) = mat(0, 0, 0; 0, 0, 0) $
+  ```,
+  [
+    $ I_3 = mat(1, 0, 0; 0, 1, 0; 0, 0, 1) $
 
-$ O_2 = mat(0, 0; 0, 0) $
+    $ O_(2 times 3) = mat(0, 0, 0; 0, 0, 0) $
+  ]
+)
 
 === Định thức
 
-Định thức (determinant) — khái niệm gắn liền với mỗi ma trận vuông — được
-viết bằng cách dùng `delim: "|"`:
+Định thức của ma trận vuông được ký hiệu bằng `|...|` (dấu gạch đứng hai bên):
 
-#code-block[
-```typst
-$ det(A) = |mat(1, 2; 3, 4)| = 1 dot 4 - 2 dot 3 = -2 $
-```
-]
-
-$ det(A) = |mat(1, 2; 3, 4)| = 1 dot 4 - 2 dot 3 = -2 $
-
-Đối với ma trận cấp 3:
-
-$ &
-  |mat(a_(1 1), a_(1 2), a_(1 3);
-       a_(2 1), a_(2 2), a_(2 3);
-       a_(3 1), a_(3 2), a_(3 3))| \
-  = a_(1 1) a_(2 2) a_(3 3) + a_(1 2) a_(2 3) a_(3 1) + a_(1 3) a_(2 1) a_(3 2) \
-  quad - a_(1 3) a_(2 2) a_(3 1) - a_(1 1) a_(2 3) a_(3 2) - a_(1 2) a_(2 1) a_(3 3)
-$
+#code-preview(
+  ```typst
+$ det(A) = |mat(delim: "|", 1, 2; 3, 4)|
+         = 1 dot 4 - 2 dot 3 = -2 $
+  ```,
+  [
+    $ det(A) = mat(delim: "|", 1, 2; 3, 4) = 1 dot 4 - 2 dot 3 = -2 $
+  ]
+)
 
 === Hệ phương trình tuyến tính
 
-Dùng `cases()` để biểu diễn hệ phương trình một cách gọn gàng:
+Dùng `cases()` để trình bày hệ phương trình gọn gàng và chuẩn mực:
 
-#code-block[
-```typst
+#code-preview(
+  ```typst
 $
   cases(
     2x + 3y - z = 1,
@@ -114,32 +124,17 @@ $
     3x + 2y + z = 4,
   )
 $
-```
-]
-
-$
-  cases(
-    2x + 3y - z = 1,
-    x - y + 2z = -1,
-    3x + 2y + z = 4,
-  )
-$
-
-=== Phương pháp khử Gauss
-
-Phương pháp Gauss (đặt tên theo nhà Toán học Đức *Carl Friedrich Gauss*,
-1777–1855) là thuật toán nền tảng để giải hệ phương trình tuyến tính.
-Dưới đây là cách trình bày phương pháp trên Typst:
-
-#code-block[
-```typst
-$
-  mat(2, 3, -1, 1; 1, -1, 2, -1; 3, 2, 1, 4)
-  arrow R_2 - frac(1, 2) R_1
-  mat(2, 3, -1, 1; 0, -frac(5, 2), frac(5, 2), -frac(3, 2); 3, 2, 1, 4)
-$
-```
-]
+  ```,
+  [
+    $
+      cases(
+        2x + 3y - z = 1,
+        x - y + 2z = -1,
+        3x + 2y + z = 4,
+      )
+    $
+  ]
+)
 
 === Tổng (Sigma) và Tích (Pi)
 

@@ -1,73 +1,56 @@
 #import "../assets/style.typ": *
-== Nhập dữ liệu từ CSV và JSON
 
-Typst có khả năng đọc dữ liệu từ file ngoài, rất hữu ích cho sinh nội dung động.
+== Nhập dữ liệu từ file ngoài
+
+Một trong những tính năng mạnh nhất của Typst là khả năng đọc dữ liệu
+từ file CSV, JSON, và YAML ngay trong quá trình biên dịch. Điều này
+mở ra vô số ứng dụng: bảng điểm tự động, ngân hàng câu hỏi, cấu hình
+đề thi, ...
 
 === Đọc file CSV
 
+File CSV (Comma-Separated Values) là định dạng phổ biến để lưu trữ
+dữ liệu dạng bảng, có thể xuất từ Excel, Google Sheets, hoặc Python.
+
+Giả sử bạn có file `diem.csv`:
+
 #code-block[
-```typst
-// File diem.csv:
-// Ten,Toan,Ly,Hoa
-// An,8.5,7.0,9.0
-// Binh,6.5,8.0,7.5
-// Chi,9.0,8.5,8.0
-
-#let data = csv("diem.csv")
-
-#table(
-  columns: (auto, auto, auto, auto),
-  stroke: 0.5pt,
-  [*Họ tên*], [*Toán*], [*Lý*], [*Hóa*],
-  ..data.flatten(),
-)
+```csv
+Họ tên,Toán,Lý,Hóa,Tin
+Nguyễn Văn An,8.5,7.0,9.0,8.0
+Trần Thị Bình,6.5,8.0,7.5,9.0
+Lê Văn Cường,9.0,8.5,8.0,7.5
+Phạm Thị Dung,7.0,6.5,8.5,8.0
 ```
 ]
 
-=== Ứng dụng: Bảng phân phối xác suất
+Đọc và hiển thị trong Typst:
 
 #code-block[
 ```typst
-// File phanphoi.csv
-// z,0.00,0.01,0.02
-// 0.0,0.5000,0.5040,0.5080
-// 0.1,0.5398,0.5438,0.5478
-
-#let ztable = csv("phanphoi.csv")
+#let data = csv("diem.csv")
 
 #table(
-  columns: (auto, auto, auto, auto),
+  columns: (auto, auto, auto, auto, auto, auto),
   stroke: 0.5pt,
-  ..ztable.flatten(),
+  table.header[*Họ tên*], table.header[*Toán*], table.header[*Lý*],
+  table.header[*Hóa*], table.header[*Tin*], table.header[*TB*],
+  ..for hs in data {
+    let tb = (float(hs.Toán) + float(hs.Lý) + float(hs.Hóa) + float(hs.Tin)) / 4
+    (hs.at(0), hs.at(1), hs.at(2), hs.at(3), hs.at(4), str(round(100 * tb) / 100))
+  },
 )
 ```
 ]
 
 === Đọc file JSON
 
-#code-block[
-```typst
-// File config.json:
-// {
-//   "so-cau": 40,
-//   "thoi-gian": 90,
-//   "mon": "Toan",
-//   "ma-de": "101"
-// }
-
-#let config = json("config.json")
-
-Thời gian làm bài: #config.thoi-gian phút
-Môn: #config.mon
-Mã đề: #config.ma-de
-```
-]
-
-=== Ứng dụng: Cấu hình đề thi từ JSON
+JSON (JavaScript Object Notation) là định dạng linh hoạt cho dữ liệu
+có cấu trúc, rất phù hợp để lưu ngân hàng câu hỏi, cấu hình.
 
 #code-block[
 ```typst
-// File de-thi.json:
+// File cau-hinh.json:
 // {
 //   "tieu-de": "ĐỀ KIỂM TRA GIỮA KỲ",
 //   "mon": "Giải tích 1",
@@ -76,14 +59,16 @@ Mã đề: #config.ma-de
 //   "diem-toi-da": 10
 // }
 
-#let de = json("de-thi.json")
+#let cfg = json("cau-hinh.json")
 
-#align(center, text(size: 16pt, weight: "bold")[#de.tieu-de])
-#align(center)[Môn: #de.mon — Thời gian: #de.thoi-gian phút]
+#align(center, text(size: 16pt, weight: "bold")[#cfg.tieu-de])
+#align(center)[Môn: #cfg.mon — Thời gian: #cfg.thoi-gian phút]
 ```
 ]
 
 === Đọc file YAML
+
+YAML có cú pháp thân thiện hơn JSON, thường dùng cho metadata:
 
 #code-block[
 ```typst
@@ -91,7 +76,6 @@ Mã đề: #config.ma-de
 // title: "Typst cho Toán học"
 // author: "Nguyễn Đăng Minh Phúc"
 // year: 2026
-// isbn: "978-...-..."
 
 #let meta = yaml("meta.yaml")
 
@@ -102,29 +86,49 @@ Mã đề: #config.ma-de
 ```
 ]
 
-=== Ví dụ thực hành: Sinh danh sách bài tập từ JSON
+=== Ví dụ: Sinh danh sách bài tập từ JSON
+
+File `bai-tap.json`:
 
 #code-block[
-```typst
-// File bai-tap.json:
-// [
-//   {"so": 1, "noi-dung": "Tính $1 + 1$", "diem": 0.5},
-//   {"so": 2, "noi-dung": "Giải $x^2 - 1 = 0$", "diem": 1.0},
-//   {"so": 3, "noi-dung": "Tính $integral_0^1 x dif x$", "diem": 1.5}
-// ]
-
-#let bai-tap-list = json("bai-tap.json")
-
-#for bt in bai-tap-list {
-  *Câu #bt.so (#bt.diem điểm).* #bt.noi-dung
-}
+```json
+[
+  {"so": 1, "cau": "Tính $1 + 1$", "diem": 0.5},
+  {"so": 2, "cau": "Giải $x^2 - 1 = 0$", "diem": 1.0},
+  {"so": 3, "cau": "Tính $integral_0^1 x dif x$", "diem": 1.5},
+  {"so": 4, "cau": "Tính $lim_(x -> 0) (sin x)/x$", "diem": 1.0},
+  {"so": 5, "cau": "Tìm đạo hàm của $x^3$", "diem": 1.0}
+]
 ```
 ]
 
-=== Bài tập thực hành
+Code Typst:
 
-*Bài 1.* Tạo file CSV chứa điểm của 10 học sinh, 5 môn. Dùng Typst đọc và hiển thị thành bảng điểm kèm điểm trung bình.
+#code-block[
+```typst
+#let bt-list = json("bai-tap.json")
 
-*Bài 2.* Thiết kế file JSON cho ngân hàng 20 câu hỏi trắc nghiệm, mỗi câu có: nội dung, 4 đáp án, đáp án đúng, mức độ (dễ/trung bình/khó).
+#for bt in bt-list {
+  *Câu #bt.so (#bt.diem điểm).* #bt.cau
+  #v(2cm)
+}
 
-*Bài 3.* Viết hàm đọc cấu hình từ JSON và tự động sinh đề thi với thông số: số câu, thời gian, mã đề.
+#align(right)[
+  *Tổng: #bt-list.map(x => float(x.diem)).sum() điểm*
+]
+```
+]
+
+=== Bài tập thực hành (Dữ liệu ngoài)
+
+*Bài 1.* Tạo file CSV chứa điểm của 20 học sinh, 5 môn học. Đọc vào
+Typst và tạo bảng điểm kèm cột Trung bình và Xếp loại (dùng `#if`).
+
+*Bài 2.* Thiết kế file JSON cho ngân hàng 30 câu hỏi trắc nghiệm
+(Toán lớp 12), mỗi câu có: `id`, `noi-dung`, `dap-an` (4 lựa chọn),
+`dap-an-dung`, `muc-do` (Nhận biết/Thông hiểu/Vận dụng), `chu-de`.
+
+*Bài 3.* Viết hàm `doc-de-thi(config, ngan-hang)` tự động tạo đề thi
+từ file cấu hình JSON và ngân hàng câu hỏi JSON.
+
+#pagebreak()

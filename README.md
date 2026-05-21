@@ -7,7 +7,7 @@
 
 ## Giới thiệu
 
-**Soạn văn bản Toán bằng Typst** là cuốn sách hướng dẫn thực hành dành cho **sinh viên và giáo viên Toán** muốn sử dụng [Typst](https://typst.app) — hệ thống soạn thảo tài liệu thế hệ mới — để tạo ra các tài liệu Toán học đẹp, chuyên nghiệp và dễ bảo trì.
+**Soạn văn bản Toán bằng Typst** là cuốn sách hướng dẫn thực hành dành cho **sinh viên và giáo viên Toán** muốn sử dụng [Typst trên HeyTeX](https://heytex.pedu.vn) — hệ thống soạn thảo tài liệu thế hệ mới — để tạo ra các tài liệu Toán học đẹp, chuyên nghiệp và dễ bảo trì.
 
 Bản thân cuốn sách này cũng được viết hoàn toàn bằng Typst, vừa là tài liệu học tập, vừa là ví dụ minh họa trực tiếp cho những gì Typst có thể làm được.
 
@@ -98,7 +98,7 @@ winget install --id Typst.Typst
 # Linux (cargo)
 cargo install typst-cli
 
-# Hoặc dùng trực tuyến: https://typst.app
+# Dùng trực tuyến: https://heytex.pedu.vn
 ```
 
 ### 2. Clone dự án
@@ -160,7 +160,7 @@ $ a^2 + b^2 = c^2 $
 Mọi đóng góp đều được chào đón! Bạn có thể:
 
 - 🐛 Báo lỗi qua [Issues](https://github.com/phucdhh/Typyst4MathEdu/issues)
-- 💡 Đề xuất nội dung mới qua [Discussions](https://github.com/phucdhh/Typyst4MathEdu/discussions)
+- 💡 Đề xuất nội dung mới qua [HeyTeX Group](https://www.ganjingworld.com/s/eKX33OVjAZ)
 - 📝 Gửi Pull Request để sửa lỗi hoặc bổ sung ví dụ
 
 Vui lòng đọc [`CONTRIBUTING.md`](./CONTRIBUTING.md) trước khi gửi PR.
@@ -177,10 +177,10 @@ Vui lòng đọc [`CONTRIBUTING.md`](./CONTRIBUTING.md) trước khi gửi PR.
 ## 💬 Liên hệ & Cộng đồng
 
 - 📧 Email: `ndmphuc@hueuni.edu.vn`
-- 🇻🇳 Nhóm Typst Việt Nam: *(sắp ra mắt)*
+- 🇻🇳 Nhóm Typst Việt Nam: [HeyTeX Group](https://www.ganjingworld.com/s/eKX33OVjAZ)
 
 ---
 
 <p align="center">
-  <em>Được viết bằng ❤️ và Typst · Dành cho cộng đồng Toán học Việt Nam</em>
+  <em>Được viết bằng ❤️ và Typst · Dành cho cộng đồng những người yêu Toán</em>
 </p>

@@ -2,17 +2,29 @@
 
 = Chương 1: Giới thiệu Typst
 
+Bạn đang cầm trên tay một cuốn sách thực hành. Thay vì chỉ đọc lý thuyết,
+mỗi khái niệm trong chương này đều đi kèm ví dụ code thực tế và kết quả
+biên dịch tương ứng. Sau khi hoàn thành chương này, bạn sẽ có thể cài đặt
+Typst, hiểu cấu trúc tài liệu, và tự tay tạo ra tài liệu Toán học đầu tiên
+của mình — ngay trong ngày hôm nay.
+
 #ghi-nho[
-  *Mục tiêu chương:* Sau khi học xong chương này, bạn sẽ hiểu Typst là gì,
-  cài đặt được môi trường làm việc, và tạo ra tài liệu Toán học đầu tiên
-  của mình bằng Typst.
+  *Mục tiêu chương:* Sau khi học xong chương này, bạn sẽ:
+  - Hiểu Typst là gì và tại sao nên dùng cho Toán học
+  - Cài đặt được môi trường làm việc (CLI + VS Code hoặc Typst App)
+  - Tạo và biên dịch tài liệu Typst đầu tiên có chứa công thức Toán
 ]
 
 == Typst là gì?
 
-Typst là một hệ thống soạn thảo tài liệu mã nguồn mở, được thiết kế để
-thay thế LaTeX trong các tác vụ soạn thảo học thuật, đặc biệt là các tài liệu
-có nhiều công thức Toán học.
+Có thể bạn đã từng dùng Microsoft Word để gõ bài Toán và vật lộn với
+Equation Editor, hoặc đã nghe đến LaTeX nhưng bị đống lệnh phức tạp
+làm nản lòng. Typst là lựa chọn thứ ba — giữ lại chất lượng của LaTeX
+nhưng với cú pháp đơn giản và thân thiện hơn rất nhiều.
+
+Nói ngắn gọn: *Typst là ngôn ngữ đánh dấu* (markup language) chuyên dùng
+để soạn thảo tài liệu, giống như LaTeX nhưng hiện đại hơn. Bạn viết nội dung
+trong file văn bản thuần (`.typ`), rồi Typst biên dịch thành file PDF đẹp.
 
 === Lịch sử ra đời
 
@@ -35,25 +47,33 @@ một hệ sinh thái package phong phú (*Typst Universe*), tương tự như *
 === So sánh chi tiết: Typst vs LaTeX vs Microsoft Word
 
 Để hiểu rõ vị trí của Typst trong bức tranh soạn thảo tài liệu, hãy xem xét
-bảng so sánh dưới đây. Mỗi công cụ đều có thế mạnh riêng:
+bảng so sánh dưới đây. Mỗi công cụ đều có thế mạnh riêng — không có công cụ
+nào tốt tuyệt đối cho mọi tình huống:
 
 #figure(
   table(
-    columns: (auto, auto, auto, auto),
+    columns: (1.8fr, 1fr, 1fr, 1fr),
     align: (left, center, center, center),
     stroke: 0.5pt,
-    table.header[*Tiêu chí*], table.header[*Typst*], table.header[*LaTeX*], table.header[*Word*],
+    fill: (_, row) => if row == 0 { rgb("#2c3e50") } else if calc.odd(row) { rgb("#f8f9fa") } else { white },
+    table.header(
+      text(fill: white, weight: "bold")[Tiêu chí],
+      text(fill: white, weight: "bold")[Typst],
+      text(fill: white, weight: "bold")[LaTeX],
+      text(fill: white, weight: "bold")[Word],
+    ),
     [Cú pháp], [Đơn giản, dễ đọc], [Phức tạp, nhiều lệnh], [Kéo thả, trực quan],
-    [Tốc độ], [Tức thì (incremental)], [Chậm (full compile)], [Tức thì],
-    [Công thức Toán], [Tuyệt vời], [Tiêu chuẩn vàng], [Hạn chế (Equation Editor)],
-    [Lập trình], [Có sẵn (scripting)], [Macro TeX phức tạp], [Macro VBA],
-    [Mã nguồn mở], table.cell(fill: rgb("#eafaf1"))[Có], table.cell(fill: rgb("#eafaf1"))[Có], table.cell(fill: rgb("#fadbd8"))[Không],
+    [Tốc độ biên dịch], [Tức thì (incremental)], [Chậm (full compile)], [Tức thì],
+    [Công thức Toán], [★★★★★], [★★★★★ (chuẩn vàng)], [★★☆ (Equation Editor)],
+    [Ngôn ngữ scripting], [Có sẵn (Typst)], [Macro TeX phức tạp], [Macro VBA],
+    [Mã nguồn mở], table.cell(fill: rgb("#eafaf1"))[✓ Có], table.cell(fill: rgb("#eafaf1"))[✓ Có], table.cell(fill: rgb("#fadbd8"))[✗ Không],
     [Đường cong học tập], table.cell(fill: rgb("#eafaf1"))[Thoải mái], table.cell(fill: rgb("#fadbd8"))[Dốc], table.cell(fill: rgb("#eafaf1"))[Thoải mái],
-    [Git-friendly], table.cell(fill: rgb("#eafaf1"))[Có (plain text)], table.cell(fill: rgb("#eafaf1"))[Có (plain text)], table.cell(fill: rgb("#fadbd8"))[Không (binary)],
-    [Hỗ trợ Unicode], table.cell(fill: rgb("#eafaf1"))[Đầy đủ], table.cell(fill: rgb("#f9e79f"))[Cần gói], table.cell(fill: rgb("#eafaf1"))[Đầy đủ],
-    [Cộng tác thời gian thực], table.cell(fill: rgb("#eafaf1"))[Có (Typst App)], table.cell(fill: rgb("#f9e79f"))[Qua Overleaf], table.cell(fill: rgb("#eafaf1"))[Có (OneDrive)],
+    [Git-friendly], table.cell(fill: rgb("#eafaf1"))[✓ (plain text)], table.cell(fill: rgb("#eafaf1"))[✓ (plain text)], table.cell(fill: rgb("#fadbd8"))[✗ (binary)],
+    [Hỗ trợ Unicode/tiếng Việt], table.cell(fill: rgb("#eafaf1"))[Đầy đủ], table.cell(fill: rgb("#f9e79f"))[Cần cấu hình], table.cell(fill: rgb("#eafaf1"))[Đầy đủ],
+    [Kích thước cài đặt], [~40 MB], [~4 GB (TeX Live)], [~2 GB (Office)],
+    [Cộng tác trực tuyến], [Có (Typst App)], [Qua Overleaf], [Có (OneDrive)],
   ),
-  caption: [So sánh chi tiết Typst, LaTeX và Microsoft Word dựa trên 9 tiêu chí],
+  caption: [So sánh Typst, LaTeX và Microsoft Word theo 10 tiêu chí],
 )
 
 ==== Khi nào nên dùng Typst
@@ -62,67 +82,71 @@ bảng so sánh dưới đây. Mỗi công cụ đều có thế mạnh riêng:
 - *Đề thi và bài tập*: tạo đề, đáp án, phiếu bài tập hàng loạt
 - *Slide bài giảng*: dùng gói `polylux` để tạo slide chuyên nghiệp
 - *Dự án cá nhân hoặc nhóm nhỏ*: file plain text dễ quản lý bằng Git
+- *Người mới bắt đầu*: đường cong học tập thoải mái hơn LaTeX nhiều
 
 ==== Khi nào vẫn cần LaTeX
 
-- *Gửi bài đến tạp chí khoa học* yêu cầu định dạng LaTeX (mẫu `.cls` có sẵn)
-- *Sử dụng arXiv* — hiện tại arXiv chưa hỗ trợ Typst (dù đang được thảo luận)
-- *Dự án có sẵn codebase LaTeX lớn* — chuyển đổi tốn thời gian
+- *Gửi bài đến tạp chí khoa học* yêu cầu định dạng LaTeX (template `.cls` có sẵn)
+- *Sử dụng arXiv* — hiện tại arXiv chưa hỗ trợ Typst (đang được cộng đồng thảo luận)
+- *Dự án có sẵn codebase LaTeX lớn* — chuyển đổi sang Typst tốn thời gian
 
 === Hệ sinh thái Typst
 
 Typst không chỉ là một chương trình biên dịch — nó là một hệ sinh thái gồm ba
-thành phần chính, phối hợp với nhau:
+thành phần chính phối hợp với nhau:
 
 *1. Typst CLI (Command Line Interface)* — công cụ dòng lệnh, cài đặt trên máy tính cá nhân.
 Biên dịch file `.typ` thành PDF hoặc PNG. Phù hợp với người dùng chuyên nghiệp,
-tích hợp vào CI/CD pipeline, script tự động hóa.
+có thể tích hợp vào CI/CD pipeline và script tự động hóa.
 
 *2. Typst App (Web Editor)* — truy cập tại _typst.app_. Trình soạn thảo trực tuyến,
-không cần cài đặt gì. Hỗ trợ cộng tác thời gian thực (nhiều người cùng viết),
-lưu trữ đám mây, chia sẻ dự án qua link.
+không cần cài đặt gì. Hỗ trợ cộng tác thời gian thực, lưu trữ đám mây, chia sẻ qua link.
 
-*3. Typst Universe (Package Registry)* — kho gói mở rộng chính thức.
-Tương tự như CTAN của LaTeX hoặc npm của JavaScript. Tại đây bạn tìm thấy
-các gói như `cetz` (vẽ hình), `polylux` (slide), `showybox` (hộp định lý),
-và hàng trăm gói khác do cộng đồng đóng góp.
+*3. Typst Universe (Package Registry)* — kho gói mở rộng chính thức tại _typst.app/universe_.
+Tương tự CTAN của LaTeX hay npm của JavaScript. Bao gồm các gói: `cetz` (vẽ hình),
+`polylux` (slide trình chiếu), `showybox` (hộp định lý, ví dụ), `equate` (đánh số công thức
+linh hoạt), và hàng trăm gói do cộng đồng đóng góp.
 
 #ghi-nho[
-  Một ưu điểm lớn của Typst so với LaTeX: bạn *không cần cài đặt hàng GB
-  package* như TeX Live. Typst CLI chỉ ~40MB và tự động tải package
-  từ Universe khi cần.
+  Một ưu điểm lớn của Typst so với LaTeX: bạn *không cần cài đặt hàng GB package*
+  như TeX Live hay MiKTeX. Typst CLI chỉ ~40 MB và tự động tải package từ
+  Typst Universe khi cần, ngay trong lần biên dịch đầu tiên.
 ]
 
 == Cài đặt môi trường
+
+Có hai cách sử dụng Typst: cài đặt trực tiếp trên máy tính (khuyên dùng cho công việc
+thường xuyên và tích hợp với VS Code), hoặc dùng Typst App trên trình duyệt
+(không cần cài đặt gì, phù hợp khi muốn thử nhanh).
 
 === Cài đặt Typst CLI
 
 Typst CLI có sẵn trên cả ba hệ điều hành chính. Dưới đây là hướng dẫn chi tiết
 cho từng nền tảng.
 
-==== macOS (Apple Silicon / Intel)
+*Trên macOS (Apple Silicon hoặc Intel):*
 
 Sử dụng Homebrew — trình quản lý gói phổ biến nhất trên macOS:
 
 #code-block[
 ```bash
-# Cài đặt Homebrew nếu chưa có
+# Cài đặt Homebrew nếu chưa có (bỏ qua nếu đã có)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Cài đặt Typst
 brew install typst
 
-# Kiểm tra phiên bản
+# Kiểm tra phiên bản (kết quả ví dụ: typst 0.13.0)
 typst --version
 ```
 ]
 
-==== Windows
+*Trên Windows (10 hoặc 11):*
 
-Sử dụng winget (Windows Package Manager) — có sẵn trên Windows 10/11:
+Sử dụng winget — Windows Package Manager có sẵn trên Windows 10/11:
 
 #code-block[
-```bash
+```powershell
 # Cài đặt Typst
 winget install --id Typst.Typst
 
@@ -131,72 +155,61 @@ typst --version
 ```
 ]
 
-Hoặc tải trực tiếp file `.msi` từ trang GitHub Releases của Typst:
-_https://github.com/typst/typst/releases_
+Hoặc tải trực tiếp file `.msi` từ trang GitHub Releases:
+`github.com/typst/typst/releases`
 
-==== Linux
+*Trên Linux:*
 
-Sử dụng Cargo (trình quản lý gói của Rust):
+Phần lớn bản phân phối Linux có sẵn Typst trong repository chính thức.
+Ví dụ với Arch Linux, Ubuntu/Debian, Fedora:
 
 #code-block[
 ```bash
-# Cài đặt Rust và Cargo nếu chưa có
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Arch Linux
+pacman -S typst
 
-# Cài đặt Typst CLI
-cargo install typst-cli
+# Ubuntu/Debian (qua snap)
+snap install typst
 
-# Kiểm tra phiên bản
-typst --version
+# Hoặc tải binary trực tiếp từ GitHub Releases và đặt vào /usr/local/bin/
 ```
 ]
 
-Một số bản phân phối Linux cũng có sẵn Typst trong repository chính thức,
-ví dụ Arch Linux (`pacman -S typst`).
+=== Cài đặt VS Code và extension Tinymist
 
-=== Cài đặt VS Code + Extension
+Visual Studio Code (VS Code) kết hợp với extension *Tinymist* tạo ra môi trường
+soạn thảo Typst lý tưởng: có preview trực tiếp, gợi ý code, kiểm tra lỗi ngay khi gõ.
 
-Visual Studio Code (VS Code) là trình soạn thảo mã nguồn phổ biến,
-hỗ trợ Typst rất tốt thông qua các extension chuyên dụng.
+*Bước 1:* Tải và cài đặt VS Code từ `code.visualstudio.com`
 
-*Bước 1:* Tải và cài đặt VS Code từ _https://code.visualstudio.com_
+*Bước 2:* Mở VS Code → nhấn `Cmd+Shift+X` (macOS) hoặc `Ctrl+Shift+X` (Windows/Linux)
+để mở panel Extensions.
 
-*Bước 2:* Mở VS Code, vào phần Extensions (tổ hợp phím `Cmd+Shift+X` trên macOS,
-`Ctrl+Shift+X` trên Windows/Linux).
+*Bước 3:* Tìm kiếm `"Tinymist Typst"` → nhấn Install.
 
-*Bước 3:* Tìm và cài một trong hai extension sau:
+*Bước 4:* Mở hoặc tạo một file `.typ` → VS Code sẽ tự nhận diện và kích hoạt extension.
 
-- *Tinymist* (khuyên dùng) — extension toàn diện nhất cho Typst:
-  syntax highlighting, chẩn đoán lỗi, preview trực tiếp, tự động hoàn thành.
-
-- *Typst LSP* — extension nhẹ hơn, tập trung vào Language Server Protocol.
-
-*Phím tắt hữu ích trong VS Code với Typst:*
-
-- `Cmd+K V` (macOS) / `Ctrl+K V` (Windows): mở preview PDF bên cạnh
-- `Cmd+S` / `Ctrl+S`: lưu và tự động cập nhật preview
-- `Cmd+Shift+P` → "Typst: Preview": mở preview thủ công
+#chu-y[
+  Sau khi cài Tinymist, nhấn `Ctrl+Shift+P` (Windows/Linux) hoặc `Cmd+Shift+P` (macOS)
+  và gõ "Typst Preview" để mở cửa sổ xem trước PDF bên cạnh editor. Mỗi lần bạn
+  lưu file (`Ctrl+S` / `Cmd+S`), preview sẽ cập nhật ngay lập tức.
+]
 
 === Sử dụng Typst App (không cần cài đặt)
 
-Nếu bạn không muốn cài đặt bất kỳ phần mềm nào, Typst App là lựa chọn lý tưởng:
+Nếu bạn muốn thử Typst ngay mà không cần cài đặt bất kỳ phần mềm nào:
 
-1. Truy cập _https://typst.app_
-2. Đăng ký tài khoản miễn phí (có thể dùng tài khoản GitHub)
-3. Nhấn "New Project" để tạo dự án mới
-4. Bắt đầu viết ngay trên trình duyệt
+1. Truy cập `typst.app` bằng trình duyệt (Chrome, Firefox, Edge, Safari...)
+2. Đăng ký tài khoản miễn phí — có thể dùng tài khoản Google hoặc GitHub
+3. Nhấn *"New Project"* để tạo dự án mới
+4. Bắt đầu gõ code Typst ngay trong trình duyệt, preview hiển thị song song bên phải
 
 #chu-y[
-  *Ưu điểm của Typst App:*
-  - Không cần cài đặt gì
-  - Cộng tác thời gian thực (như Google Docs)
-  - Chia sẻ dự án qua link
-  - Tự động lưu trên đám mây
+  *Ưu điểm của Typst App:* Không cần cài đặt. Cộng tác thời gian thực như Google Docs.
+  Chia sẻ dự án qua link. Tự động lưu trên đám mây.
 
-  *Nhược điểm:*
-  - Cần kết nối Internet
-  - Giới hạn số lượng dự án miễn phí
-  - Không tích hợp được vào CI/CD pipeline
+  *Nhược điểm:* Cần kết nối Internet. Giới hạn số dự án ở tài khoản miễn phí.
+  Không tích hợp được với Git hay CI/CD pipeline.
 ]
 
 === Cài đặt font chữ Toán học

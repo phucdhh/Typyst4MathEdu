@@ -2,199 +2,223 @@
 
 = Chương 2: Cú pháp cơ bản
 
+Sau chương đầu, bạn đã cài đặt được Typst và thấy một tài liệu đơn giản chạy
+được. Chương này sẽ đi sâu vào ngữ pháp của Typst: cách làm việc với văn bản,
+định dạng chữ, tiêu đề, danh sách, bảng biểu — tất cả những gì cần thiết để
+viết một tài liệu giáo dục hoàn chỉnh.
+
+Điểm nhấn quan trọng: mỗi ví dụ trong chương này đều có hai phần — *code bạn gõ*
+và *kết quả bạn thấy trong PDF* — đặt cạnh nhau để so sánh trực tiếp.
+
 #ghi-nho[
-  *Mục tiêu chương:* Thành thạo cú pháp văn bản, định dạng cơ bản,
-  công thức Toán *inline* và *block*, cùng cách tạo bảng biểu,
-  chèn hình ảnh và thiết lập bố cục trang.
+  *Mục tiêu chương:* Thành thạo cú pháp văn bản và định dạng cơ bản;
+  viết công thức Toán *inline* và *block*; tạo bảng biểu, chèn hình ảnh
+  và thiết lập bố cục trang.
 ]
 
 == Văn bản và định dạng cơ bản
 
 Typst coi văn bản là thành phần mặc định — bạn không cần thẻ đặc biệt nào
-để viết chữ. Điều này khác với LaTeX, nơi bạn phải bắt đầu với
-`\begin{document}`.
+để bắt đầu viết chữ. Điều này khác với LaTeX, nơi bạn phải viết `\begin{document}`
+trước khi có bất kỳ văn bản nào hiện ra.
 
 === Đoạn văn và xuống dòng
 
-Trong Typst, có hai cách xuống dòng:
+Trong Typst, quy tắc xuống dòng khác với những gì bạn hay dùng trong Word:
 
-1. *Xuống dòng đơn* (soft break) — nhấn Enter một lần. Văn bản vẫn nằm trong
-   cùng một đoạn. Typst sẽ tự động ngắt dòng khi cần.
+1. *Xuống dòng đơn* (soft break) — nhấn Enter một lần. Văn bản vẫn thuộc
+   cùng một đoạn. Typst tự động nối thành dòng liên tục và tự ngắt khi cần.
 
-2. *Xuống đoạn* (paragraph break) — để một dòng trống giữa hai đoạn văn.
-   Đây là cách để tạo đoạn văn mới.
+2. *Xuống đoạn* (paragraph break) — để trống một dòng giữa hai đoạn.
+   Đây mới là cách tạo đoạn văn mới trong Typst.
 
-#vi-du[
-  Đoạn thứ nhất. Vẫn trong đoạn thứ nhất.
-  Dòng này cũng vẫn trong đoạn thứ nhất.
+#code-preview(
+  ```typst
+Đoạn thứ nhất. Vẫn trong đoạn thứ nhất.
+Dòng này cũng vẫn trong đoạn thứ nhất.
 
-  Đoạn thứ hai. Đây là đoạn mới,
-  vì phía trên có một dòng trống.
-]
+Đoạn thứ hai bắt đầu ở đây, vì phía
+trên có một dòng trống.
+  ```,
+  [
+    Đoạn thứ nhất. Vẫn trong đoạn thứ nhất. Dòng này cũng vẫn trong đoạn thứ nhất.
 
-=== In đậm, in nghiêng, gạch chân và code inline
+    Đoạn thứ hai bắt đầu ở đây, vì phía trên có một dòng trống.
+  ]
+)
 
-Typst dùng cú pháp đánh dấu (markdown-like) cho các kiểu chữ cơ bản.
-Nguồn gốc của cú pháp này là từ *Markdown* — ngôn ngữ đánh dấu nhẹ do
-John Gruber tạo ra năm 2004 — nhưng Typst mở rộng đáng kể khả năng của nó.
+=== In đậm, in nghiêng và code inline
 
-Kiểu chữ thường dùng trong tài liệu Toán học:
+Typst dùng cú pháp đánh dấu (tương tự Markdown) cho các kiểu chữ cơ bản:
 
-| Kiểu | Cú pháp | Kết quả | Mục đích sử dụng |
-|------|---------|---------|------------------|
-| In đậm | `*nội dung*` | In đậm | Từ khóa, định nghĩa |
-| In nghiêng | `_nội dung_` | In nghiêng | Thuật ngữ tiếng Anh, nhấn mạnh |
-| Code | `` `nội dung` `` | `code` | Tên lệnh, cú pháp |
-| Đậm+nghiêng | `_*nội dung*_` | Đậm và nghiêng | Nhấn mạnh mạnh |
+#code-preview(
+  ```typst
+*In đậm* dùng cho từ khóa và định nghĩa.
+_In nghiêng_ dùng cho thuật ngữ tiếng Anh.
+`code inline` dùng cho tên lệnh, cú pháp.
+_*Vừa đậm vừa nghiêng*_ để nhấn mạnh mạnh.
+  ```,
+  [
+    *In đậm* dùng cho từ khóa và định nghĩa.
+    _In nghiêng_ dùng cho thuật ngữ tiếng Anh.
+    `code inline` dùng cho tên lệnh, cú pháp.
+    _*Vừa đậm vừa nghiêng*_ để nhấn mạnh mạnh.
+  ]
+)
 
-#code-block[
-```typst
-*Định lý Pythagoras* là một trong những định lý
-cơ bản nhất của _Euclidean geometry_.
+Bảng tóm tắt các kiểu chữ thường dùng trong tài liệu Toán học:
 
-Trong Typst, bạn dùng `$a^2$` để viết $a^2$.
-```
-]
+#figure(
+  table(
+    columns: (1fr, 1fr, 1fr, 1.5fr),
+    stroke: 0.5pt,
+    fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+    table.header([*Cú pháp*], [*Kết quả*], [*Phím tắt*], [*Khi nào dùng*]),
+    [`*nội dung*`], [*in đậm*], [`Ctrl+B`], [Từ khóa, định nghĩa],
+    [`_nội dung_`], [_in nghiêng_], [`Ctrl+I`], [Thuật ngữ tiếng Anh],
+    [`` `nội dung` ``], [`code`], [-], [Tên lệnh, cú pháp],
+    [`_*nội dung*_`], [_*đậm + nghiêng*_], [-], [Nhấn mạnh đặc biệt],
+  ),
+  caption: [Các kiểu định dạng chữ cơ bản trong Typst],
+)
 
 === Tiêu đề các cấp
 
-Typst dùng dấu `=` để tạo tiêu đề. Số lượng dấu `=` quyết định cấp tiêu đề,
-từ 1 đến 6:
+Số dấu `=` quyết định cấp của tiêu đề, từ 1 đến 6. Typst tự động đánh số
+và định dạng mỗi cấp theo style đã cấu hình:
 
-#code-block[
-```typst
+#code-preview(
+  ```typst
 = Tiêu đề cấp 1 (chương)
 == Tiêu đề cấp 2 (mục lớn)
 === Tiêu đề cấp 3 (mục con)
 ==== Tiêu đề cấp 4 (tiểu mục)
-===== Tiêu đề cấp 5
-====== Tiêu đề cấp 6
-```
-]
+  ```,
+  [
+    #text(size: 16pt, weight: "bold")[1 Tiêu đề cấp 1 (chương)]
+    #v(0.3em)
+    #text(size: 13pt, weight: "bold", fill: rgb("#2e86c1"))[1.1 Tiêu đề cấp 2 (mục lớn)]
+    #v(0.2em)
+    #text(size: 11pt, weight: "bold")[1.1.1 Tiêu đề cấp 3 (mục con)]
+    #v(0.2em)
+    #text(size: 11pt, weight: "bold")[Tiêu đề cấp 4 (tiểu mục)]
+  ]
+)
 
 #chu-y[
-  *Lưu ý quan trọng:* Sau dấu `=` phải có *ít nhất một khoảng trắng*.
-  Typst phân biệt `= Tiêu đề` (tiêu đề) với `=3` (phép gán giá trị trong code mode).
+  Sau dấu `=` phải có *ít nhất một khoảng trắng*. Typst phân biệt
+  `= Tiêu đề` (tiêu đề cấp 1) với `=x` (phép so sánh bằng trong code mode).
+  Trong sách này, chúng tôi dùng tối đa 3 cấp tiêu đề có đánh số.
 ]
-
-Bạn có thể tùy chỉnh cách hiển thị tiêu đề bằng `#show heading` (sẽ học ở
-Chương 5).
 
 === Danh sách (List)
 
-Typst hỗ trợ hai loại danh sách chính:
+Typst hỗ trợ hai loại danh sách phổ biến nhất:
 
-*Danh sách không thứ tự* (unordered list / bullet list) dùng dấu `-`:
+#code-preview(
+  ```typst
+// Danh sách không thứ tự (dùng dấu -)
+- Giải tích
+- Đại số tuyến tính
+  - Ma trận
+  - Định thức
+- Xác suất thống kê
 
-#code-block[
-```typst
-- Mục thứ nhất
-- Mục thứ hai
-  - Mục con (thụt vào 2 khoảng trắng)
-  - Mục con khác
-- Mục thứ ba
-```
-]
+// Danh sách có thứ tự (dùng dấu +)
++ Đọc đề bài
++ Phân tích yêu cầu
++ Thực hiện tính toán
++ Kiểm tra kết quả
+  ```,
+  [
+    - Giải tích
+    - Đại số tuyến tính
+      - Ma trận
+      - Định thức
+    - Xác suất thống kê
 
-*Danh sách có thứ tự* (ordered list / numbered list) dùng dấu `+`:
+    + Đọc đề bài
+    + Phân tích yêu cầu
+    + Thực hiện tính toán
+    + Kiểm tra kết quả
+  ]
+)
 
-#code-block[
-```typst
-+ Bước 1: Đọc đề
-+ Bước 2: Phân tích
-+ Bước 3: Giải
-  + Bước 3a: Đặt ẩn
-  + Bước 3b: Biến đổi
-+ Bước 4: Kết luận
-```
-]
+=== Chú thích và ký tự đặc biệt
 
-- Mục thứ nhất
-- Mục thứ hai
-  - Mục con (thụt vào 2 khoảng trắng)
-  - Mục con khác
-- Mục thứ ba
-
-+ Bước 1: Đọc đề
-+ Bước 2: Phân tích
-+ Bước 3: Giải
-  + Bước 3a: Đặt ẩn
-  + Bước 3b: Biến đổi
-+ Bước 4: Kết luận
-
-=== Chú thích (Comments)
-
-Dùng `//` cho chú thích một dòng. Chú thích *không xuất hiện* trong file PDF
-— chúng chỉ dành cho người viết và cộng tác viên:
+Dùng `//` cho chú thích — sẽ *không xuất hiện* trong file PDF:
 
 #code-block[
 ```typst
-// Đây là chú thích — sẽ không thấy trong PDF
+// Đây là chú thích — chỉ người viết nhìn thấy
 $ a^2 + b^2 = c^2 $ // Công thức Pythagoras
 ```
 ]
 
-=== Ký tự đặc biệt và escape
+Một số ký tự có ý nghĩa đặc biệt và cần escape bằng dấu `\`:
 
-Một số ký tự có ý nghĩa đặc biệt trong Typst và cần được *escape* (thoát)
-nếu bạn muốn hiển thị chúng như văn bản thường:
-
-| Ký tự | Ý nghĩa đặc biệt | Cách escape |
-|-------|-----------------|-------------|
-| `\` | Bắt đầu lệnh | `\\` |
-| `$` | Bắt đầu/kết thúc công thức | `\$` |
-| `#` | Bắt đầu code mode | `\#` |
-| `~` | Khoảng trắng không ngắt | `\~` |
-
-#code-block[
-```typst
-Giá sản phẩm là \$50.000
-Đường dẫn: C:\\Users\\Admin
-Địa chỉ email: ten\#123@email.com
-```
-]
+#figure(
+  table(
+    columns: (1fr, 1.5fr, 1fr),
+    stroke: 0.5pt,
+    fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+    table.header([*Ký tự*], [*Ý nghĩa trong Typst*], [*Cách escape*]),
+    [`$`], [Bắt đầu/kết thúc công thức], [`\$`],
+    [`#`], [Bắt đầu lệnh Typst], [`\#`],
+    [`*`], [Bắt đầu in đậm], [`\*`],
+    [`_`], [Bắt đầu in nghiêng], [`\_`],
+    [`\`], [Ký tự escape], [`\\`],
+  ),
+  caption: [Các ký tự đặc biệt và cách escape trong Typst],
+)
 
 === Unicode và tiếng Việt
 
-Typst hỗ trợ Unicode đầy đủ. Tiếng Việt với tất cả các dấu thanh
-(á, à, ả, ã, ạ, ư, ơ, ê, ô, đ) được hiển thị chính xác mà không cần
-gói bổ sung — một lợi thế lớn so với LaTeX, nơi bạn cần `\usepackage[utf8]{vietnam}`
-và font phù hợp.
+Typst hỗ trợ Unicode đầy đủ từ đầu — không cần cài thêm package hay cấu hình phức tạp
+như LaTeX. Tất cả chữ tiếng Việt với dấu thanh đều hiển thị đúng ngay khi bạn gõ:
 
-#code-block[
-```typst
+#code-preview(
+  ```typst
 #set text(lang: "vi")
 
-Tiếng Việt: Trường Đại học Sư phạm Huế
-Toán học: Định lý Pythagoras
-Dấu thanh đầy đủ: à á ả ã ạ, ầ ấ ẩ ẫ ậ
-```
-]
+Đây là văn bản tiếng Việt với đầy đủ dấu thanh:
+Sắc: á, ắ, ấ, é, ế, í, ó, ố, ớ, ú, ứ, ý
+Huyền: à, ằ, ầ, è, ề, ì, ò, ồ, ờ, ù, ừ, ỳ
+  ```,
+  [
+    #set text(lang: "vi")
+    Đây là văn bản tiếng Việt với đầy đủ dấu thanh:
 
-Nếu font không hiển thị đúng dấu tiếng Việt, hãy chuyển sang font
-hỗ trợ đầy đủ Unicode tiếng Việt như *Noto Serif*, *STIX Two*,
-hoặc *New Computer Modern*.
+    Sắc: á, ắ, ấ, é, ế, í, ó, ố, ớ, ú, ứ, ý
 
-#chu-y[
-  Khi dùng `#set text(lang: "vi")`, Typst sẽ kích hoạt các quy tắc
-  ngắt dòng và gạch nối (hyphenation) phù hợp với tiếng Việt.
+    Huyền: à, ằ, ầ, è, ề, ì, ò, ồ, ờ, ù, ừ, ỳ
+  ]
+)
+
+#ghi-nho[
+  Lệnh `#set text(lang: "vi")` báo cho Typst biết ngôn ngữ tài liệu là tiếng Việt,
+  kích hoạt quy tắc ngắt dòng và gạch nối (hyphenation) phù hợp với tiếng Việt.
+  Đây là lệnh nên đặt ở đầu mỗi tài liệu tiếng Việt.
 ]
 
 == Liên kết, hình ảnh và bảng biểu
 
 === Siêu liên kết (Hyperlinks)
 
-Trong Typst, siêu liên kết được tạo bằng hàm `#link`:
+Trong Typst, siêu liên kết được tạo bằng hàm `#link(url)[văn bản hiển thị]`:
 
-#code-block[
-```typst
-#link("https://typst.app")[Tài liệu chính thức Typst]
-#link("https://github.com")[GitHub]
-```
-]
+#code-preview(
+  ```typst
+Tài liệu chính thức: #link("https://typst.app")[typst.app]
 
-Liên kết trong PDF sẽ có thể nhấn được và thường có màu sắc khác biệt
-(tùy thuộc vào style đã cấu hình).
+Kho package: #link("https://typst.app/universe")[Typst Universe]
+  ```,
+  [
+    Tài liệu chính thức: #link("https://typst.app")[typst.app]
+
+    Kho package: #link("https://typst.app/universe")[Typst Universe]
+  ]
+)
 
 === Chèn hình ảnh
 
@@ -208,6 +232,7 @@ Typst hỗ trợ các định dạng ảnh phổ biến: PNG, JPEG, GIF, và SVG
   caption: [Đồ thị hàm số $y = x^2$],
 )
 ```
+]
 
 Để căn chỉnh ảnh:
 

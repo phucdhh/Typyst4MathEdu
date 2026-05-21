@@ -2,93 +2,168 @@
 
 == Giải tích
 
-Giải tích (Calculus), do *Isaac Newton* (1642–1727) và *Gottfried Wilhelm Leibniz*
-(1646–1716) độc lập phát triển vào cuối thế kỷ 17, là một trong những thành tựu
-vĩ đại nhất của Toán học. Typst hỗ trợ xuất sắc tất cả các ký hiệu Giải tích.
+Giải tích (Calculus) là ngôn ngữ của thay đổi và chuyển động. Từ việc tính diện tích
+hình phức tạp, tìm giá trị lớn nhất-nhỏ nhất, đến mô hình hóa sự tăng trưởng dân số
+— Giải tích là công cụ không thể thiếu. Phần này trình bày cách soạn thảo
+các ký hiệu Giải tích trong Typst.
 
 === Giới hạn (Limit)
 
-Giới hạn là khái niệm nền tảng của Giải tích, được *Augustin-Louis Cauchy*
-(1789–1857) định nghĩa chặt chẽ lần đầu tiên.
+Giới hạn là nền tảng của Giải tích. Trong Typst, dùng `lim_(x -> a)`:
 
-#code-block[
-```typst
-// Giới hạn cơ bản
+#code-preview(
+  ```typst
 $ lim_(x -> 0) frac(sin x, x) = 1 $
 
-// Giới hạn một phía
-$ lim_(x -> 0^+) frac(1, x) = +infinity $
-$ lim_(x -> 0^-) frac(1, x) = -infinity $
-
-// Giới hạn vô cực
 $ lim_(x -> infinity) (1 + frac(1, x))^x = e $
-```
-]
 
-$ lim_(x -> 0) frac(sin x, x) = 1 $ — giới hạn lượng giác cơ bản
+$ lim_(x -> 0^+) frac(1, x) = +infinity $
+  ```,
+  [
+    $ lim_(x -> 0) frac(sin x, x) = 1 $
 
-$ lim_(x -> infinity) (1 + frac(1, x))^x = e $ — định nghĩa Euler của hằng số $e$
+    $ lim_(x -> infinity) (1 + frac(1, x))^x = e $
 
-=== Ký hiệu $O$ lớn và $o$ nhỏ
-
-Trong phân tích thuật toán và Giải tích tiệm cận, ký hiệu Landau
-(đặt theo tên nhà Toán học Đức *Edmund Landau*, 1877–1938) rất phổ biến:
-
-#code-block[
-```typst
-$ f(n) = O(n^2) $     // O lớn (Big-O)
-$ f(x) = o(h) $       // o nhỏ (little-o)
-$ f(x) ~ g(x) $       // tương đương tiệm cận
-```
-]
+    $ lim_(x -> 0^+) frac(1, x) = +infinity $
+  ]
+)
 
 === Đạo hàm
 
-Typst hỗ trợ cả bốn hệ thống ký hiệu đạo hàm chính, mỗi hệ thống
-có nguồn gốc và ứng dụng riêng:
+Typst hỗ trợ tất cả các hệ thống ký hiệu đạo hàm phổ biến:
 
-*1. Ký hiệu Leibniz* (`dif` — differential):
+#code-preview(
+  ```typst
+// Ký hiệu Lagrange (prime) — phổ biến nhất ở VN
+$f'(x)$, $f''(x)$, $f^((n))(x)$
 
-$ (dif f)/(dif x) $ — đạo hàm cấp 1 (do Leibniz đề xuất)
+// Ký hiệu Leibniz — chuẩn Toán học quốc tế
+$(dif f)/(dif x)$, $(dif^2 f)/(dif x^2)$
 
-$ (dif^2 f)/(dif x^2) $ — đạo hàm cấp 2
+// Đạo hàm riêng — Giải tích nhiều biến
+$(partial f)/(partial x)$, $(partial^2 f)/(partial x partial y)$
+  ```,
+  [
+    *Lagrange:* $f'(x)$, $f''(x)$, $f^((n))(x)$
 
-Ký hiệu Leibniz đặc biệt hữu ích vì nó thể hiện rõ biến đạo hàm
-và dễ mở rộng cho đạo hàm riêng.
+    *Leibniz:* $(dif f)/(dif x)$, $(dif^2 f)/(dif x^2)$
 
-*2. Ký hiệu Newton* — dùng dấu chấm trên đầu:
+    *Đạo hàm riêng:* $(partial f)/(partial x)$, $(partial^2 f)/(partial x partial y)$
+  ]
+)
 
-$ dot(f) $ — đạo hàm cấp 1 theo thời gian (phổ biến trong Vật lý)
-
-$ dot(dot(f)) $ — đạo hàm cấp 2
-
-*3. Ký hiệu Prime* (Lagrange):
-
-$ f'(x) $ — đạo hàm cấp 1 (do *Joseph-Louis Lagrange* đề xuất)
-
-$ f''(x) $ — đạo hàm cấp 2
-
-$ f'''(x) $ — đạo hàm cấp 3
-
-=== Đạo hàm riêng (Partial derivative)
-
-Đạo hàm riêng xuất hiện trong Giải tích nhiều biến, được ký hiệu
-bằng chữ `partial` ($partial$):
-
-#code-block[
-```typst
-$ partial f / partial x $                       // cấp 1
-$ (partial^2 f)/(partial x^2) $                 // cấp 2 thuần nhất
-$ (partial^2 f)/(partial x partial y) $         // cấp 2 hỗn hợp
-```
+#ghi-nho[
+  Ký hiệu `dif` trong Typst là chữ "d" thẳng đứng (upright d), đúng theo
+  tiêu chuẩn quốc tế ISO 80000 cho ký hiệu vi phân. Gõ `dif` thay vì
+  chỉ gõ chữ `d` để công thức đúng chuẩn typographic.
 ]
 
-$ partial f / partial x $, $ (partial^2 f)/(partial x^2) $, $ (partial^2 f)/(partial x partial y) $
+=== Tích phân
 
-=== Gradient, Divergence, Curl
+#code-preview(
+  ```typst
+// Tích phân bất định
+$ integral x^2 dif x = frac(x^3, 3) + C $
 
-Ba toán tử vector quan trọng (ký hiệu Nabla $nabla$ có nguồn gốc từ
-chữ Hebrew cổ):
+// Tích phân xác định
+$ integral_0^1 x^2 dif x = frac(1, 3) $
+
+// Tích phân kép
+$ integral.double_D f(x, y) dif x dif y $
+
+// Tích phân đường
+$ integral_C P dif x + Q dif y $
+  ```,
+  [
+    $ integral x^2 dif x = frac(x^3, 3) + C $
+
+    $ integral_0^1 x^2 dif x = frac(1, 3) $
+
+    $ integral.double_D f(x, y) dif x dif y $
+
+    $ integral_C P dif x + Q dif y $
+  ]
+)
+
+=== Khai triển chuỗi Taylor và MacLaurin
+
+Chuỗi Taylor là công cụ gần đúng hàm bằng đa thức. Đây là cú pháp Typst
+để trình bày khai triển chuỗi với dấu chấm lược:
+
+#code-preview(
+  ```typst
+$ e^x = 1 + x + frac(x^2, 2!) + frac(x^3, 3!) + dots = sum_(n=0)^infinity frac(x^n, n!) $
+
+$ sin x = x - frac(x^3, 3!) + frac(x^5, 5!) - dots $
+
+$ cos x = 1 - frac(x^2, 2!) + frac(x^4, 4!) - dots $
+  ```,
+  [
+    $ e^x = 1 + x + frac(x^2, 2!) + frac(x^3, 3!) + dots = sum_(n=0)^infinity frac(x^n, n!) $
+
+    $ sin x = x - frac(x^3, 3!) + frac(x^5, 5!) - dots $
+
+    $ cos x = 1 - frac(x^2, 2!) + frac(x^4, 4!) - dots $
+  ]
+)
+
+=== Gradient, Divergence và Curl (Giải tích vector)
+
+Các toán tử vi phân quan trọng trong Giải tích vector:
+
+#code-preview(
+  ```typst
+// Gradient
+$nabla f = (frac(partial f, partial x), frac(partial f, partial y), frac(partial f, partial z))$
+
+// Divergence
+$nabla dot bold(F) = frac(partial F_x, partial x) + frac(partial F_y, partial y) + frac(partial F_z, partial z)$
+
+// Laplacian
+$nabla^2 f = frac(partial^2 f, partial x^2) + frac(partial^2 f, partial y^2)$
+  ```,
+  [
+    Gradient: $nabla f = (frac(partial f, partial x), frac(partial f, partial y), frac(partial f, partial z))$
+
+    Divergence: $nabla dot bold(F) = frac(partial F_x, partial x) + frac(partial F_y, partial y) + frac(partial F_z, partial z)$
+
+    Laplacian: $nabla^2 f = frac(partial^2 f, partial x^2) + frac(partial^2 f, partial y^2)$
+  ]
+)
+
+=== Ví dụ: Tích phân từng phần
+
+#vi-du[
+  *Tính* $I = integral_0^(pi/2) x sin x dif x$.
+
+  *Phương pháp:* Tích phân từng phần — đặt $u = x$, $dif v = sin x dif x$
+  thì $dif u = dif x$, $v = -cos x$.
+
+  $
+    I &= [-x cos x]_0^(pi/2) + integral_0^(pi/2) cos x dif x \
+      &= 0 + [sin x]_0^(pi/2) \
+      &= 1
+  $
+]
+
+=== Bài tập (Giải tích)
+
+*Bài 1.* Tính các giới hạn và trình bày bằng Typst:
+a) $lim_(x -> 0) (tan x)/x$;
+b) $lim_(x -> infinity) (ln x)/x$;
+c) $lim_(x -> 0) (e^(3x) - 1)/x$.
+
+*Bài 2.* Lập bảng đạo hàm của 10 hàm số sơ cấp thường gặp (2 cột: hàm số và đạo hàm).
+
+*Bài 3.* Tính các tích phân và trình bày chi tiết các bước:
+a) $integral_0^1 x e^x dif x$;
+b) $integral x^3 ln x dif x$;
+c) $integral_0^pi sin^2 x dif x$.
+
+*Bài 4.* Trình bày khai triển Taylor của $f(x) = cos x$ quanh $x = 0$ đến bậc 6.
+
+#pagebreak()
+
 
 #code-block[
 ```typst

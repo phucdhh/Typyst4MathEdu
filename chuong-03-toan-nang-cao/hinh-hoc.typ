@@ -2,86 +2,132 @@
 
 == Hình học và đồ họa với cetz
 
+Một tài liệu Toán học chuyên nghiệp không thể thiếu hình vẽ. Hình minh hoạ giúp học sinh
+hình dung khái niệm trừu tượng, làm rõ quan hệ hình học và làm đẹp trang sách.
+Trong Typst, gói `cetz` (viết tắt của _CErtified TyZ_) là công cụ vẽ hình vector
+mạnh mẽ nhất — tương đương với TikZ trong LaTeX nhưng cú pháp đơn giản và nhất quán hơn nhiều.
+
 === Giới thiệu cetz
 
-`cetz` là gói vẽ hình vector mạnh mẽ dành cho Typst, tương tự như *TikZ/PGF*
-trong LaTeX nhưng có cú pháp đơn giản hơn nhiều. Gói này được phát triển
-bởi cộng đồng Typst và đã trở thành lựa chọn hàng đầu cho vẽ hình Toán học.
-
-Cài đặt:
+`cetz` cho phép vẽ điểm, đoạn thẳng, đường tròn, cung, hình chữ nhật, đường cong
+Bezier, và gán nhãn cho mọi đối tượng. Kết quả là hình vector hoàn hảo trong file PDF.
 
 #code-block[
 ```typst
+// Cài đặt: thêm vào đầu file
 #import "@preview/cetz:0.3.2": canvas, draw
 ```
 ]
 
-Mọi hình vẽ đều được đặt trong khối `canvas`. Canvas hoạt động như một
-hệ tọa độ Descartes với gốc ở góc dưới bên trái (mặc định).
+Mọi hình vẽ được đặt trong khối `canvas`. Canvas hoạt động như một hệ tọa độ Descartes
+với gốc ở góc dưới bên trái (mặc định).
 
 === Canvas — Hệ tọa độ
 
 #code-block[
 ```typst
 #canvas({
-  // Tọa độ (x, y)
-  // Gốc: (0, 0) — góc dưới bên trái
-  // Các lệnh vẽ ở đây...
+  // Tọa độ (x, y): x tăng sang phải, y tăng lên trên
+  // Gốc (0, 0) ở góc dưới bên trái
+  // Các lệnh vẽ đặt ở đây...
 })
 ```
 ]
 
 === Các lệnh vẽ cơ bản trong cetz
 
-==== Vẽ điểm và gán nhãn
+*Vẽ điểm và gán nhãn:*
 
 #code-block[
 ```typst
 #canvas({
-  let A = draw.point((0, 0), name: "A")
-  let B = draw.point((4, 0), name: "B")
-  let C = draw.point((0, 3), name: "C")
+  draw.circle((0, 0), radius: 0.05, fill: black, name: "A")
+  draw.circle((4, 0), radius: 0.05, fill: black, name: "B")
+  draw.circle((0, 3), radius: 0.05, fill: black, name: "C")
 
-  draw.content(A, $A$, anchor: "north-west")
-  draw.content(B, $B$, anchor: "north-east")
-  draw.content(C, $C$, anchor: "south")
+  draw.content("A", $A$, anchor: "north-east")
+  draw.content("B", $B$, anchor: "north-west")
+  draw.content("C", $C$, anchor: "south-east")
 })
 ```
 ]
 
-==== Vẽ đoạn thẳng
+*Vẽ đoạn thẳng và tam giác:*
 
 #code-block[
 ```typst
 #canvas({
-  draw.line((0, 0), (4, 0))   // trục hoành
-  draw.line((0, 0), (0, 3))   // trục tung
-  draw.line((4, 0), (0, 3))   // cạnh huyền
-
-  // Đường thẳng với style
-  draw.line(
-    (-1, 0), (5, 0),
-    stroke: (paint: red, thickness: 1pt)
-  )
+  import draw: *
+  line((0, 0), (4, 0))    // cạnh đáy
+  line((0, 0), (0, 3))    // cạnh đứng
+  line((4, 0), (0, 3))    // cạnh huyền
+  
+  // Đánh dấu góc vuông
+  rect((0, 0), (0.3, 0.3), stroke: black)
 })
 ```
 ]
 
-==== Vẽ đường tròn
+*Vẽ đường tròn và cung:*
 
 #code-block[
 ```typst
 #canvas({
-  // Đường tròn tâm (0,0) bán kính 2
-  draw.circle((0, 0), radius: 2)
-
-  // Đường tròn tô màu
-  draw.circle((3, 0), radius: 1, fill: gray, stroke: blue)
+  import draw: *
+  // Đường tròn tâm O bán kính 2
+  circle((0, 0), radius: 2, stroke: blue)
+  
+  // Tô màu hình tròn
+  circle((4, 0), radius: 1, fill: rgb("#eafaf1"), stroke: green)
+  
+  // Vẽ cung từ 0° đến 90°
+  arc((0, 0), start: 0deg, stop: 90deg, radius: 1.5)
 })
 ```
 ]
 
-==== Vẽ hình chữ nhật
+#ghi-nho[
+  Khi vẽ hình phức tạp, hãy chia nhỏ thành các phần và test từng phần.
+  Dùng `draw.content((x, y), [nhãn])` để thêm chú thích vào hình.
+  Xem thêm tài liệu đầy đủ của cetz tại `typst.app/universe/package/cetz`.
+]
+
+=== Ví dụ: Tam giác vuông và đường tròn ngoại tiếp
+
+#code-block[
+```typst
+#canvas({
+  import draw: *
+  // Tam giác vuông ABC, A ở gốc
+  line((0, 0), (4, 0))   // AB
+  line((0, 0), (0, 3))   // AC
+  line((4, 0), (0, 3))   // BC
+  // Góc vuông tại A
+  line((0.4, 0), (0.4, 0.4))
+  line((0, 0.4), (0.4, 0.4))
+  // Nhãn
+  content((0, 0), $A$, anchor: "north-east")
+  content((4, 0), $B$, anchor: "north-west")
+  content((0, 3), $C$, anchor: "south-east")
+  // Đường tròn ngoại tiếp: tâm là trung điểm BC
+  circle((2, 1.5), radius: 2.5, stroke: blue)
+})
+```
+]
+
+=== Bài tập (Hình học với cetz)
+
+*Bài 1.* Vẽ tam giác đều $"ABC"$ cạnh $a = 4$. Đánh dấu đường trung tuyến
+từ đỉnh $A$ xuống cạnh $"BC"$.
+
+*Bài 2.* Vẽ đồ thị $y = x^2$ và $y = sqrt(x)$ trên cùng hệ trục.
+Tô màu vùng nằm giữa hai đồ thị.
+
+*Bài 3.* Vẽ sơ đồ khối (dùng `fletcher`) mô tả thuật toán
+giải phương trình bậc hai.
+
+#pagebreak()
+
 
 #code-block[
 ```typst
@@ -108,7 +154,7 @@ hệ tọa độ Descartes với gốc ở góc dưới bên trái (mặc địn
 
 === Ví dụ hoàn chỉnh: Tam giác vuông với ký hiệu góc vuông
 
-Bài toán: Vẽ tam giác $ABC$ vuông tại $A$ với $AB = 4$, $AC = 3$.
+Bài toán: Vẽ tam giác $"ABC"$ vuông tại $A$ với $"AB" = 4$, $"AC" = 3$.
 
 #code-block[
 ```typst
@@ -219,20 +265,20 @@ Gói `fletcher` chuyên dùng để vẽ sơ đồ khối, lược đồ, đồ 
 
 === Bài tập thực hành (Hình học)
 
-*Bài 1.* Vẽ tam giác $ABC$ vuông tại $A$ với $AB = 4$, $AC = 3$.
-Tính và ghi chú độ dài cạnh huyền $BC$. Vẽ đường tròn ngoại tiếp tam giác.
+*Bài 1.* Vẽ tam giác $"ABC"$ vuông tại $A$ với $"AB" = 4$, $"AC" = 3$.
+Tính và ghi chú độ dài cạnh huyền $"BC"$. Vẽ đường tròn ngoại tiếp tam giác.
 
 *Bài 2.* Vẽ đồ thị hàm $y = x^2$ và $y = sqrt(x)$ trên cùng hệ trục tọa độ.
 Tô màu khác nhau cho mỗi đồ thị. Thêm lưới tọa độ và nhãn trục.
 
-*Bài 3.* Vẽ hình minh họa Định lý Ceva: tam giác $ABC$ với các đường
-đồng quy $AD$, $BE$, $CF$. Đánh dấu điểm đồng quy.
+*Bài 3.* Vẽ hình minh họa Định lý Ceva: tam giác $"ABC"$ với các đường
+đồng quy $"AD"$, $"BE"$, $"CF"$. Đánh dấu điểm đồng quy.
 
 *Bài 4.* Dùng fletcher vẽ sơ đồ khối giải phương trình bậc hai:
 Input → Tính $Delta$ → Kiểm tra $Delta$ → Output (nghiệm).
 
-*Bài 5.* Vẽ hình minh họa bài toán: "Cho hình chóp $S.ABCD$ có đáy
-$ABCD$ là hình vuông cạnh $a$, $SA$ vuông góc với đáy". Vẽ rõ nét khuất,
+*Bài 5.* Vẽ hình minh họa bài toán: "Cho hình chóp $"S.ABCD"$ có đáy
+$"ABCD"$ là hình vuông cạnh $a$, $"SA"$ vuông góc với đáy". Vẽ rõ nét khuất,
 tô màu mặt đáy.
 
 #pagebreak()

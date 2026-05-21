@@ -2,32 +2,103 @@
 
 = Chương 4: Trình bày tài liệu Toán chuyên nghiệp
 
+Ba chương đầu đã trang bị cho bạn đầy đủ công cụ để viết công thức Toán học.
+Chương này bước sang một giai đoạn khác: làm thế nào để *trình bày* những nội dung
+đó đẹp, chuyên nghiệp và đúng chuẩn của các tài liệu giảng dạy — từ phiếu bài tập,
+đề thi, đến slide bài giảng.
+
 #ghi-nho[
   *Mục tiêu chương:* Tạo được đề thi, bài tập, lời giải và slide bài giảng
-  đạt chuẩn chuyên nghiệp. Làm chủ các gói showybox, pinit, và polylux.
+  đạt chuẩn chuyên nghiệp. Làm chủ các gói `showybox`, `pinit`, và `polylux`.
 ]
 
 == Show-boxes và Môi trường nội dung Toán học
 
 === Tại sao cần hộp nội dung?
 
-Trong sách giáo khoa và tài liệu Toán, bạn thường thấy các khung đặc biệt:
-Định lý (viền xanh), Ví dụ (viền cam), Chú ý (viền đỏ), Bài tập (viền xanh lá).
-Những hộp này không chỉ làm đẹp tài liệu mà còn giúp người đọc nhanh chóng
-nhận diện loại nội dung.
+Mở bất kỳ cuốn sách giáo khoa Toán nào, bạn sẽ thấy ngay các khung màu sắc
+đặc trưng: *Định lý* (khung xanh), *Ví dụ* (khung cam), *Chú ý* (khung đỏ),
+*Bài tập* (khung xanh lá). Những hộp này không chỉ làm đẹp tài liệu mà còn
+giúp người đọc nhận diện loại nội dung và nắm bắt cấu trúc tài liệu nhanh hơn.
 
-Gói `showybox` (do *Pablo González Calderón* phát triển, có sẵn trên
-Typst Universe) cung cấp giải pháp linh hoạt cho việc này.
+Trong cuốn sách này, chúng tôi dùng gói `showybox` từ Typst Universe
+để tạo các hộp đó. Phần này sẽ cho bạn thấy cách dùng từng loại hộp.
 
 === Cài đặt showybox
 
 #code-block[
 ```typst
+// Thêm vào đầu file .typ
 #import "@preview/showybox:2.0.4": showybox
 ```
 ]
 
-=== Tạo hộp Định lý (Theorem Box)
+=== Các loại hộp có sẵn trong sách này
+
+Cuốn sách này đã định nghĩa sẵn bốn loại hộp thường dùng nhất.
+Mỗi hộp có màu sắc và biểu tượng riêng:
+
+#code-preview(
+  ```typst
+#dinh-ly[
+  *Định lý Pythagoras.* Trong tam giác vuông tại $C$:
+  $ a^2 + b^2 = c^2 $
+]
+
+#vi-du[
+  Tính diện tích tam giác vuông với hai cạnh góc vuông
+  bằng 3 cm và 4 cm.
+]
+
+#chu-y[
+  Đừng nhầm cạnh huyền với cạnh góc vuông!
+]
+
+#ghi-nho[
+  Công thức $a^2 + b^2 = c^2$ chỉ áp dụng cho *tam giác vuông*.
+]
+  ```,
+  [
+    #dinh-ly[
+      *Định lý Pythagoras.* Trong tam giác vuông tại $C$:
+      $ a^2 + b^2 = c^2 $
+    ]
+    #v(0.5em)
+    #vi-du[
+      Tính diện tích tam giác vuông với hai cạnh góc vuông bằng 3 và 4 cm.
+    ]
+    #v(0.5em)
+    #chu-y[
+      Đừng nhầm cạnh huyền với cạnh góc vuông!
+    ]
+    #v(0.5em)
+    #ghi-nho[
+      Công thức $a^2 + b^2 = c^2$ chỉ áp dụng cho *tam giác vuông*.
+    ]
+  ]
+)
+
+=== Tự tạo hộp tùy chỉnh với showybox
+
+Ngoài bốn loại hộp định sẵn, bạn có thể tạo hộp tùy chỉnh với bất kỳ
+màu sắc và tiêu đề nào:
+
+#code-block[
+```typst
+#import "@preview/showybox:2.0.4": showybox
+
+#showybox(
+  title: "Bài toán thách thức",
+  frame: (stroke: 1.5pt + purple),
+  header: (fill: purple),
+)[
+  Cho tam giác $A B C$. Chứng minh rằng tổng ba góc
+  của bất kỳ tam giác nào cũng bằng $180°$.
+]
+```
+]
+
+=== Ví dụ thực tế: Trình bày định lý với chứng minh
 
 #dinh-ly[
   *Định lý giá trị trung bình (Mean Value Theorem).*
@@ -37,48 +108,23 @@ Typst Universe) cung cấp giải pháp linh hoạt cho việc này.
   $ f'(c) = frac(f(b) - f(a), b - a) $
 ]
 
-Đoạn code tạo hộp trên:
-
-#code-block[
-```typst
-#showybox(
-  title: "Định lý",
-  body: [
-    *Định lý giá trị trung bình.*
-    Nếu $f$ liên tục trên $[a, b]$ và khả vi trên $(a, b)$,
-    thì tồn tại $c in (a, b)$ sao cho:
-
-    $ f'(c) = frac(f(b) - f(a), b - a) $
-  ],
-  frame: (stroke: 1.5pt + blue),
-  header: (fill: blue, text-weight: "bold"),
-)
-```
-]
-
-=== Tạo hộp Ví dụ (Example Box)
-
 #vi-du[
-  Tính $lim_(x -> 0) frac(sin 3x, x)$.
+  Cho $f(x) = x^2$ trên $[0, 2]$. Tìm $c$ thỏa mãn điều kiện
+  của định lý giá trị trung bình.
 
-  *Giải:* Nhân tử và mẫu với 3:
+  *Giải.* Ta có $f'(c) = 2c$ và
+  $frac(f(2) - f(0), 2 - 0) = frac(4 - 0, 2) = 2$.
 
-  $ lim_(x -> 0) frac(sin 3x, x) = lim_(x -> 0) 3 dot frac(sin 3x, 3x) = 3 dot 1 = 3 $
+  Giải phương trình $2c = 2$, ta được $c = 1 in (0, 2)$. ✓
 ]
-
-=== Tạo hộp Chú ý (Warning Box)
-
-#chu-y[
-  Khi tính tích phân từng phần, cần chọn $u$ và $dif v$ sao cho
-  $integral v dif u$ đơn giản hơn tích phân ban đầu.
-  Ưu tiên đặt $u$ là đa thức, logarit; đặt $dif v$ là lượng giác, mũ.
-]
-
-=== Tạo hộp Ghi nhớ (Note Box)
 
 #ghi-nho[
   Quy tắc *LIATE* để chọn $u$ trong tích phân từng phần:
-  L — Logarithm, I — Inverse trig, A — Algebraic, T — Trig, E — Exponential.
+  - *L* — Logarithm: $ln x$, $log_a x$
+  - *I* — Inverse trig: $arcsin x$, $arctan x$
+  - *A* — Algebraic (đa thức): $x^n$, $x^2 + 1$
+  - *T* — Trigonometric: $sin x$, $cos x$
+  - *E* — Exponential: $e^x$, $2^x$
 ]
 
 === Bảng tổng kết các loại hộp
@@ -86,7 +132,7 @@ Typst Universe) cung cấp giải pháp linh hoạt cho việc này.
 #table(
   columns: (auto, auto, auto),
   stroke: 0.5pt,
-  table.header[Loại hộp], table.header[Màu viền], table.header[Mục đích],
+  table.header([*Loại hộp*], [*Màu viền*], [*Mục đích*]),
   [Định lý], [Xanh đậm], [Phát biểu quan trọng],
   [Ví dụ], [Cam], [Minh họa cách làm],
   [Chú ý], [Đỏ], [Cảnh báo sai lầm],

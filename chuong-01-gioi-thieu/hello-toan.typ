@@ -2,73 +2,88 @@
 
 == Tài liệu Typst đầu tiên — Hello Toán!
 
+Giờ là lúc bắt tay viết! Phần này sẽ hướng dẫn bạn từng bước tạo tài liệu Typst
+đầu tiên có chứa công thức Toán học. Bạn sẽ thấy rõ sự khác biệt giữa code bạn gõ
+và kết quả hiển thị trong file PDF.
+
 === Cấu trúc tối thiểu
 
-Một file Typst không yêu cầu phần mở đầu phức tạp như LaTeX (`\documentclass`,
-`\begin{document}`, ...). Bạn chỉ cần một file với phần mở rộng `.typ` và
-bắt đầu viết nội dung ngay lập tức.
+Điểm khác biệt đầu tiên bạn nhận ra khi chuyển từ LaTeX sang Typst: *không cần phần khai báo
+(preamble) phức tạp*. Với LaTeX, bạn phải có `\documentclass`, `\usepackage`, rồi mới đến
+`\begin{document}` ... `\end{document}`. Với Typst, bạn chỉ cần mở file `.typ` và bắt đầu viết:
 
-#code-block[
-```typst
+#code-preview(
+  ```typst
 = Định lý Pythagoras
 
 Trong một tam giác vuông, bình phương cạnh huyền
 bằng tổng bình phương hai cạnh góc vuông:
 
 $ a^2 + b^2 = c^2 $
-```
-]
+  ```,
+  [
+    *1  Định lý Pythagoras*
+    #line(length: 100%, stroke: 0.5pt + gray)
+    #v(0.3em)
+    Trong một tam giác vuông, bình phương cạnh huyền bằng tổng bình phương hai cạnh góc vuông:
 
-=== Phân tích từng dòng lệnh
+    $ a^2 + b^2 = c^2 $
+  ]
+)
 
-Hãy cùng phân tích chi tiết từng dòng trong ví dụ trên:
+#v(0.5em)
 
-#table(
-  columns: (auto, 1fr),
-  stroke: 0.5pt,
-  table.header[*Dòng*], table.header[*Ý nghĩa*],
-  [`= Định lý Pythagoras`], [`=` tạo tiêu đề cấp 1. Số dấu `=` quyết định cấp tiêu đề:
-  `==` cho cấp 2, `===` cho cấp 3, và cứ thế đến `======` cho cấp 6.],
-  [`Trong một tam giác vuông...`], [Văn bản thông thường. Đoạn văn mới bắt đầu
-  sau một dòng trống. Typst tự động sắp chữ và căn lề.],
-  [`$ a^2 + b^2 = c^2 $`], [Công thức Toán *block* (độc lập, căn giữa).
-  Dấu `$` có khoảng trắng hai bên nội dung. `a^2` nghĩa là $a$ mũ $2$.],
+Để hiểu rõ từng dòng lệnh, hãy xem bảng phân tích dưới đây:
+
+#figure(
+  table(
+    columns: (auto, 1fr),
+    stroke: 0.5pt,
+    fill: (_, row) => if row == 0 { rgb("#f0f3f4") } else { white },
+    table.header([*Cú pháp*], [*Ý nghĩa*]),
+    [`= Định lý Pythagoras`], [`=` tạo tiêu đề cấp 1. Thêm dấu `=` để vào cấp sâu hơn: `==` là mục lớn, `===` là mục con.],
+    [`Trong một tam giác...`], [Văn bản thông thường. Đoạn văn mới bắt đầu sau một dòng trống.],
+    [`$ a^2 + b^2 = c^2 $`], [Công thức block (độc lập, căn giữa). Dấu `$` có *khoảng trắng* hai bên. `a^2` = $a^2$.],
+  ),
+  caption: [Giải thích từng cú pháp trong ví dụ Hello Toán],
 )
 
 === Biên dịch lần đầu
 
-Lưu nội dung trên vào file `hello.typ`, mở terminal và chạy:
+Lưu nội dung trên vào file `hello.typ`, mở terminal trong thư mục chứa file và chạy:
 
 #code-block[
 ```bash
-# Biên dịch thành PDF
 typst compile hello.typ
+# → Tạo ra file hello.pdf cùng thư mục
 ```
 ]
 
-Sau lệnh này, bạn sẽ thấy file `hello.pdf` xuất hiện trong cùng thư mục.
-Mở file PDF bằng trình xem PDF bất kỳ để kiểm tra kết quả.
+Nếu dùng VS Code với Tinymist, bạn không cần chạy lệnh thủ công — preview cập nhật
+tự động mỗi khi lưu file (`Cmd+S` / `Ctrl+S`).
 
 === Chế độ xem trực tiếp (Watch Mode)
 
-Thay vì biên dịch thủ công mỗi lần sửa, bạn nên dùng chế độ *watch*:
+Khi làm việc lâu dài, hãy dùng chế độ *watch* thay vì `compile` thủ công mỗi lần:
 
 #code-block[
 ```bash
 typst watch hello.typ
+# → Typst theo dõi file, tự động biên dịch lại mỗi khi bạn lưu
+# → Nhấn Ctrl+C để thoát
 ```
 ]
 
-Typst sẽ theo dõi file và tự động biên dịch lại mỗi khi bạn lưu. Kết hợp với
-VS Code Preview hoặc một trình xem PDF hỗ trợ auto-refresh (như Skim trên macOS),
-bạn có thể thấy kết quả *ngay lập tức* sau mỗi lần gõ phím.
+Kết hợp với trình xem PDF hỗ trợ auto-refresh (Skim trên macOS, SumatraPDF trên Windows),
+bạn thấy kết quả gần như ngay lập tức sau mỗi lần gõ phím.
 
 === Ví dụ đầy đủ: Phương trình bậc hai
 
-Cùng thử một ví dụ phức tạp hơn để thấy sức mạnh của Typst:
+Cùng thử một ví dụ phức tạp hơn để thấy sức mạnh của Typst trong việc
+trình bày Toán học. Hãy gõ đoạn code dưới đây và biên dịch:
 
-#code-block[
-```typst
+#code-preview(
+  ```typst
 = Công thức nghiệm phương trình bậc hai
 
 Phương trình bậc hai tổng quát có dạng:
@@ -77,50 +92,59 @@ $ a x^2 + b x + c = 0, quad a != 0 $
 
 trong đó $a$, $b$, $c$ là các hệ số thực.
 
-*Công thức nghiệm:*
+*Công thức nghiệm (Vieta):*
 
 $ x_(1,2) = frac(-b ± sqrt(b^2 - 4 a c), 2 a) $
 
-Biểu thức $Delta = b^2 - 4ac$ được gọi là *biệt thức*
-(discriminant).
+Biểu thức $Delta = b^2 - 4 a c$ gọi là *biệt thức*.
 
 - Nếu $Delta > 0$: hai nghiệm thực phân biệt
-- Nếu $Delta = 0$: một nghiệm kép
-- Nếu $Delta < 0$: vô nghiệm trên tập số thực
-```
+- Nếu $Delta = 0$: một nghiệm kép $x = -b/(2a)$
+- Nếu $Delta < 0$: vô nghiệm trên $RR$
+  ```,
+  [
+    *1  Công thức nghiệm phương trình bậc hai*
+    #line(length: 100%, stroke: 0.5pt + gray)
+    #v(0.3em)
+
+    Phương trình bậc hai tổng quát có dạng:
+    $ a x^2 + b x + c = 0, quad a != 0 $
+    trong đó $a$, $b$, $c$ là các hệ số thực.
+
+    *Công thức nghiệm (Vieta):*
+    $ x_(1,2) = frac(-b plus.minus sqrt(b^2 - 4 a c), 2 a) $
+
+    Biểu thức $Delta = b^2 - 4 a c$ gọi là *biệt thức*.
+
+    - Nếu $Delta > 0$: hai nghiệm thực phân biệt
+    - Nếu $Delta = 0$: một nghiệm kép $x = -b/(2a)$
+    - Nếu $Delta < 0$: vô nghiệm trên $RR$
+  ]
+)
+
+#ghi-nho[
+  Nhìn vào ví dụ trên, bạn thấy sự khác biệt rõ ràng giữa *công thức inline* (như
+  $a$, $b$, $c$ nằm trong dòng văn bản) và *công thức block* (như công thức nghiệm
+  nằm trên dòng riêng, căn giữa). Quy tắc:
+  - Inline: `$biểu thức$` (dấu `$` liền với nội dung)
+  - Block: `$ biểu thức $` (có khoảng trắng trước và sau nội dung)
 ]
-
-=== Kết quả đầu ra
-
-Khi biên dịch đoạn code trên, bạn sẽ thấy Typst tự động:
-- Định dạng tiêu đề với cỡ chữ phù hợp
-- Căn giữa công thức và đánh số (nếu được cấu hình)
-- Tạo danh sách có dấu đầu dòng
-- Sắp chữ đẹp các phân số và căn thức
 
 === Bài tập thực hành
 
 *Bài 1.* Tạo file `gioi-thieu.typ` với nội dung giới thiệu bản thân:
-họ tên, trường/lớp, chuyên ngành, sở thích. Yêu cầu:
-- Dùng ít nhất 2 cấp tiêu đề
-- Có 1 danh sách (không thứ tự hoặc có thứ tự)
-- Có 1 công thức Toán liên quan đến ngành học của bạn
-- Biên dịch và kiểm tra kết quả
+họ tên, trường/lớp, chuyên ngành. Yêu cầu:
+dùng ít nhất 2 cấp tiêu đề, có 1 danh sách, có 1 công thức Toán.
 
-*Bài 2.* Sao chép ví dụ "Phương trình bậc hai" ở trên, chạy thử.
-Sau đó sửa lại để trình bày công thức nghiệm của phương trình bậc ba
-$ a x^3 + b x^2 + c x + d = 0 $ (bạn có thể tra cứu công thức trên Wikipedia
-nếu chưa nhớ).
+*Bài 2.* Gõ lại ví dụ "Phương trình bậc hai" ở trên và biên dịch.
+Thử thay đổi dấu hiệu `±` bằng cách gõ `plus.minus` (tên trong Typst),
+sau đó biên dịch lại và kiểm tra xem có gì thay đổi không.
 
-*Bài 3.* So sánh thời gian biên dịch giữa `typst compile` và `typst watch`.
-Ghi lại thời gian cho mỗi lần sửa file.
+*Bài 3.* Cố ý tạo một lỗi nhỏ trong file Typst (ví dụ: quên đóng dấu `$`,
+hoặc viết `sqr(x)` thay vì `sqrt(x)`). Quan sát thông báo lỗi mà Typst hiển thị.
+Bạn có đọc hiểu được thông báo lỗi không?
 
-*Bài 4.* Vào typst.app, đăng ký tài khoản và viết lại nội dung Bài 2
-trên editor trực tuyến. Xuất file PDF và so sánh kết quả với bản CLI.
-Bạn có nhận xét gì về sự khác biệt?
-
-*Bài 5.* Cố ý tạo một lỗi trong file Typst (ví dụ: quên đóng ngoặc, viết sai
-ký hiệu). Quan sát thông báo lỗi của Typst. Bạn có hiểu được lỗi không?
-Typst gợi ý sửa như thế nào?
+*Bài 4.* Vào `typst.app`, đăng ký tài khoản và viết lại nội dung Bài 2
+trên editor trực tuyến. So sánh trải nghiệm làm việc trên web với CLI.
 
 #pagebreak()

@@ -44,7 +44,7 @@
 | Ký hiệu | Lệnh Typst | Ý nghĩa |
 |---------|------------|---------|
 | $angle$ | `angle` | Góc |
-| $∡$ | `∡` | Góc đo được |
+| $∡$ | `∡` | Góc định hướng |
 | $perp$ | `perp` | Vuông góc |
 | $parallel$ | `parallel` | Song song |
 | $triangle$ | `triangle` | Tam giác |
@@ -63,9 +63,9 @@
 | $=>$ | `=>` | Suy ra |
 | $<=>$ | `<=>` | Tương đương |
 | $|->$ | `|->` | Ánh xạ |
-| $dots$ | `dots` | Chấm lược ngang (giữa) |
+| $dots$ | `dots` | Chấm lược ngang |
 | $dots.v$ | `dots.v` | Chấm lược dọc |
-| $..$ | `..` | Chấm lược chéo |
+| $dots.c$ | `dots.c` | Chấm lược giữa |
 | $therefore$ | `therefore` | Do đó |
 | $∵$ | `∵` | Bởi vì |
 | $†$ | `†` | Dagger |
@@ -88,4 +88,7 @@
 | $chi$ | `chi` | $psi$ | `psi` |
 | $omega$ | `omega` | | |
 
-In hoa: viết hoa chữ cái đầu, ví dụ `Gamma` cho $Gamma$, `Delta` cho $Delta$.
+In hoa: Viết hoa chữ cái đầu. Ví dụ: `Gamma` → $Gamma$, `Delta` → $Delta$,
+`Sigma` → $Sigma$, `Omega` → $Omega$.
+
+#pagebreak()

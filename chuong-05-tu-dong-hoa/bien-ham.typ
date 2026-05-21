@@ -2,6 +2,13 @@
 
 = Chương 5: Tự động hóa & Lập trình với Typst
 
+Đây là chương làm cho Typst thực sự khác biệt so với LaTeX và Word.
+Trong khi Word chỉ là trình soạn thảo văn bản và LaTeX có hệ thống macro
+rất khó học, Typst có một *ngôn ngữ lập trình tích hợp* từ đầu —
+sạch, nhất quán và dễ tiếp cận. Bạn có thể dùng nó để:
+viết hàm tạo đề thi tự động, đọc dữ liệu từ file CSV, hay sinh ra
+hàng chục biến thể của cùng một tài liệu chỉ từ một file nguồn.
+
 #ghi-nho[
   *Mục tiêu chương:* Làm chủ ngôn ngữ scripting của Typst để
   tái sử dụng cấu trúc, nhập dữ liệu từ file ngoài, và sinh
@@ -21,19 +28,34 @@ mà không cần bất kỳ công cụ bên ngoài nào.
 Typst hoạt động ở hai chế độ:
 
 1. *Content mode* (mặc định): viết văn bản, định dạng, công thức.
-   Mọi thứ bạn gõ đều được hiểu là nội dung.
+   Mọi thứ bạn gõ đều được hiểu là nội dung tài liệu.
 
 2. *Code mode* (bắt đầu bằng `#`): viết biểu thức, gọi hàm, tính toán.
-   Dấu `#` chuyển từ content mode sang code mode.
+   Dấu `#` chuyển từ content mode sang code mode trong một dòng.
 
-#code-block[
-```typst
-#let x = 5          // code mode: định nghĩa biến
-Giá trị là #x.      // content mode + code: hiển thị giá trị
-#let y = x * 2 + 1  // code mode: tính toán
-Kết quả: #y.        // hiển thị kết quả
-```
-]
+#code-preview(
+  ```typst
+#let x = 5           // code mode: định nghĩa biến
+Giá trị là #x.       // content + code: hiển thị biến
+
+#let y = x * 2 + 1   // code: tính toán
+Kết quả: #y.         // hiển thị kết quả
+
+// Khối code nhiều dòng dùng {}
+#{
+  let a = 10
+  let b = 20
+  [Tổng là #(a + b).]
+}
+  ```,
+  [
+    Giá trị là 5.
+
+    Kết quả: 11.
+
+    Tổng là 30.
+  ]
+)
 
 === Biến và kiểu dữ liệu
 

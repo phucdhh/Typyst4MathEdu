@@ -1,53 +1,76 @@
 #import "../assets/style.typ": *
+
 == Sinh đề thi tự động
 
-=== Thiết kế ngân hàng câu hỏi JSON
+=== Tổng quan
+
+Khả năng sinh đề thi tự động là một trong những ứng dụng ấn tượng nhất
+của Typst scripting. Kết hợp dữ liệu từ JSON và logic lập trình, bạn có thể:
+
+- Tạo ngân hàng câu hỏi một lần, sinh nhiều đề khác nhau
+- Đảm bảo cân bằng mức độ (dễ/trung bình/khó) theo tỷ lệ mong muốn
+- Tự động sinh đáp án cho từng mã đề
+- Trộn thứ tự câu hỏi và đáp án
+
+Kiến trúc tổng thể:
 
 #code-block[
-```json
-// ngan-hang.json
-[
-  {
-    "id": 1,
-    "noi-dung": "Giới hạn $lim_(x -> 0) (sin x)/x$ bằng:",
-    "dap-an": ["0", "1", "∞", "Không tồn tại"],
-    "dung": 1,
-    "muc-do": "de",
-    "chu-de": "gioi-han"
-  },
-  {
-    "id": 2,
-    "noi-dung": "Đạo hàm của $sin x$ là:",
-    "dap-an": ["cos x", "-cos x", "sin x", "-sin x"],
-    "dung": 0,
-    "muc-do": "de",
-    "chu-de": "dao-ham"
-  }
-]
+```
+ngan-hang.json      style.typ
+      \               /
+       \             /
+    sinh-de.typ (script chính)
+           |
+           v
+    de-101.pdf, de-102.pdf, ...
+    dap-an-101.pdf, dap-an-102.pdf, ...
 ```
 ]
 
-=== Phân loại theo Bloom
+=== Thiết kế ngân hàng câu hỏi
 
-| Mức độ | Mô tả | Tỷ lệ trong đề |
-|--------|-------|----------------|
-| Nhận biết | Nhớ lại công thức, định nghĩa | 30% |
-| Thông hiểu | Hiểu và áp dụng cơ bản | 40% |
-| Vận dụng | Bài toán phức tạp, tổng hợp | 30% |
+Cấu trúc JSON cho một câu hỏi:
+
+#code-block[
+```json
+{
+  "id": 1,
+  "noi-dung": "Giới hạn $lim_(x -> 0) (sin x)/x$ bằng:",
+  "dap-an": ["0", "1", "∞", "Không tồn tại"],
+  "dap-an-dung": "B",
+  "muc-do": "Nhận biết",
+  "chu-de": "Giới hạn"
+}
+```
+]
+
+=== Phân loại câu hỏi theo Bloom
+
+Dựa trên *Thang nhận thức Bloom* (Benjamin Bloom, 1956), câu hỏi
+được phân thành 3 mức:
+
+#table(
+  columns: (auto, auto, 1fr),
+  stroke: 0.5pt,
+  table.header[*Mức độ*], table.header[*Tỷ lệ đề xuất*], table.header[*Mô tả*],
+  [Nhận biết], [30%], [Nhớ và nhận ra công thức, định nghĩa, định lý],
+  [Thông hiểu], [40%], [Hiểu ý nghĩa, áp dụng trực tiếp công thức],
+  [Vận dụng], [30%], [Giải bài toán phức tạp, tổng hợp nhiều kiến thức],
+)
 
 === Thuật toán chọn câu hỏi
 
 #code-block[
 ```typst
 #let chon-cau-hoi(ngan-hang, so-cau, ty-le) = {
-  // Phân loại câu hỏi theo mức độ
-  let de = ngan-hang.filter(x => x.muc-do == "de")
-  let tb = ngan-hang.filter(x => x.muc-do == "trung-binh")
-  let kho = ngan-hang.filter(x => x.muc-do == "kho")
+  // Phân loại câu hỏi
+  let de  = ngan-hang.filter(x => x.muc-do == "Nhận biết")
+  let tb  = ngan-hang.filter(x => x.muc-do == "Thông hiểu")
+  let kho = ngan-hang.filter(x => x.muc-do == "Vận dụng")
 
-  // Tính số câu mỗi mức độ
-  let so-de = int(so-cau * ty-le.de)
-  let so-tb = int(so-cau * ty-le.trung-binh)
+  // Tính số câu mỗi loại
+  let so-de  = int(so-cau * ty-le.de)
+  let so-tb  = int(so-cau * ty-le.tb)
   let so-kho = so-cau - so-de - so-tb
 
   // Chọn ngẫu nhiên và trộn
@@ -66,80 +89,85 @@
 
 #code-block[
 ```typst
-#let sinh-ma-de(ngan-hang, so-cau, ma) = {
+#let tao-de-thi(ngan-hang, so-cau, ty-le, ma-de) = {
   let cau-hoi = chon-cau-hoi(ngan-hang, so-cau, ty-le)
-  // Tạo nội dung đề
-  [
-    #align(right)[Mã đề: #ma]
-    
-    #for i in range(cau-hoi.len()) [
-      *Câu #(i + 1).* #cau-hoi.at(i).noi-dung \
-      #let dap-an = cau-hoi.at(i).dap-an
-      A. #dap-an.at(0) \
-      B. #dap-an.at(1) \
-      C. #dap-an.at(2) \
-      D. #dap-an.at(3) \
+
+  // Cấu trúc đề thi
+  align(center, text(size: 14pt, weight: "bold")[ĐỀ KIỂM TRA])
+  align(right, text(size: 10pt)[Mã đề: #ma-de])
+
+  for (i, ch) in cau-hoi.enumerate() {
+    [
+      *Câu #(i + 1).* #ch.noi-dung
+      #let da = ch.dap-an.shuffle()  // trộn đáp án
+      A. #da.at(0) \
+      B. #da.at(1) \
+      C. #da.at(2) \
+      D. #da.at(3) \
     ]
-  ]
+
+    // Tạo file đáp án riêng
+    // ...
+  }
 }
-```
-]
-
-=== Tự động tạo đáp án
-
-#code-block[
-```typst
-#let tao-dap-an(ngan-hang, cau-hoi, ma) = {
-  let dap-an = cau-hoi.map(x => {
-    let bang = ("A", "B", "C", "D")
-    bang.at(x.dung)
-  })
-
-  [
-    *ĐÁP ÁN MÃ ĐỀ #ma*
-    #table(
-      columns: (auto, auto, auto, auto),
-      stroke: 0.5pt,
-      ..for i in range(cau-hoi.len()) {
-        (str(i + 1), dap-an.at(i))
-      },
-    )
-  ]
-}
-```
-]
-
-=== Ví dụ hoàn chỉnh
-
-#code-block[
-```typst
-#let ngan-hang = json("ngan-hang.json")
-#let ty-le = (de: 0.3, trung-binh: 0.4, kho: 0.3)
 
 // Sinh 4 mã đề
 #for ma in ("101", "102", "103", "104") {
   #pagebreak()
-  #let cau-hoi = chon-cau-hoi(ngan-hang, 30, ty-le)
-  #sinh-ma-de(ngan-hang, 30, ma)
-  #pagebreak()
-  #tao-dap-an(ngan-hang, cau-hoi, ma)
+  #tao-de-thi(ngan-hang, 30, ty-le, ma)
 }
 ```
 ]
 
-=== Thảo luận: Giới hạn của `#random` trong Typst
+=== Một vòng đời đề thi tự động
 
-- `random()` trong Typst sử dụng seed dựa trên thời gian biên dịch
-- Kết quả có thể thay đổi giữa các lần biên dịch
-- Để cố định kết quả, có thể dùng seed tùy chỉnh
-- Với nhu cầu phức tạp hơn, nên kết hợp Typst với Python sinh dữ liệu đầu vào
+1. *Chuẩn bị:* Soạn ngân hàng câu hỏi (JSON) — làm một lần
+2. *Cấu hình:* Tạo file cấu hình (JSON) — số câu, tỷ lệ mức độ, thời gian
+3. *Sinh đề:* Chạy `typst compile sinh-de.typ` — tạo file PDF
+4. *In ấn:* Mỗi mã đề là một file PDF riêng, sẵn sàng in
 
-=== Bài tập thực hành
+#ghi-nho[
+  *Lợi ích của sinh đề tự động:*
+  - Tiết kiệm hàng chục giờ soạn đề thủ công mỗi kỳ
+  - Đảm bảo tính công bằng (mỗi mã đề có độ khó tương đương)
+  - Dễ dàng cập nhật ngân hàng câu hỏi qua các năm
+  - Giảm thiểu sai sót do con người
+]
 
-*Bài 1.* Xây dựng ngân hàng 30 câu hỏi trắc nghiệm chương Giới hạn (đủ 3 mức độ).
+=== Thảo luận: Giới hạn của `#random`
 
-*Bài 2.* Viết chương trình sinh 4 mã đề, mỗi đề 20 câu, đảm bảo không trùng câu giữa các mã.
+Hàm `random()` trong Typst có một số hạn chế cần lưu ý:
 
-*Bài 3.* Tạo file đáp án đi kèm mỗi mã đề dạng bảng 4 cột: số câu, đáp án, mức độ, chủ đề.
+- *Seed thay đổi:* mỗi lần biên dịch, kết quả `random()` có thể khác nhau.
+  Để cố định, dùng `random(seed: 42)`.
+
+- *Không thực sự ngẫu nhiên:* Typst dùng thuật toán sinh số giả ngẫu nhiên
+  (PRNG), đủ tốt cho đề thi nhưng không dùng cho mật mã.
+
+- *Workaround:* Với nhu cầu phức tạp (ví dụ: đảm bảo không trùng câu giữa
+  các mã đề), bạn nên kết hợp Typst với Python để sinh dữ liệu đầu vào.
+
+=== Bài tập thực hành (Sinh đề)
+
+*Bài 1.* Xây dựng ngân hàng 30 câu hỏi trắc nghiệm chương "Giới hạn",
+phân bổ đều 3 mức độ (10 câu mỗi mức).
+
+*Bài 2.* Viết script sinh 4 mã đề, mỗi đề 20 câu, đảm bảo:
+- Tỷ lệ: 6 Nhận biết + 8 Thông hiểu + 6 Vận dụng
+- Không mã đề nào trùng quá 5 câu với mã đề khác
+
+*Bài 3.* Tạo file đáp án đi kèm cho mỗi mã đề, dạng bảng gồm các cột:
+Số câu | Đáp án đúng | Mức độ | Chủ đề.
+
+== Tổng kết Chương 5
+
+#ghi-nho[
+  *Những điều cần nhớ:*
+  - Typst có ngôn ngữ scripting với biến, điều kiện, vòng lặp, hàm
+  - `#set` thay đổi mặc định, `#show` biến đổi hiển thị
+  - Đọc CSV/JSON/YAML để sinh nội dung động
+  - Kết hợp JSON ngân hàng câu hỏi + script để sinh đề tự động
+  - Dùng `counter` để đánh số tự động, `random(seed: ...)` để sinh ngẫu nhiên
+]
 
 #pagebreak()

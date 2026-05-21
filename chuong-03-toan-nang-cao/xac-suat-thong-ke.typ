@@ -137,24 +137,24 @@ ta thấy $|t| = 1.95 < 2.003$ nên *chưa đủ cơ sở bác bỏ* $H_0$.
 === Ví dụ: Xác suất có điều kiện — Bài toán chẩn đoán y khoa
 
 *Đề bài.* Một xét nghiệm phát hiện bệnh có:
-- Độ nhạy $P(text(+)|text(bệnh)) = 0.95$ (95% người bệnh có kết quả dương tính)
-- Độ đặc hiệu $P(text(-)|text(khỏe)) = 0.90$ (90% người khỏe có kết quả âm tính)
-- Tỷ lệ mắc bệnh trong dân số: $P(text(bệnh)) = 0.01$ (1%)
+- Độ nhạy $P("+"|"bệnh") = 0.95$ (95% người bệnh có kết quả dương tính)
+- Độ đặc hiệu $P("−"|"khỏe") = 0.90$ (90% người khỏe có kết quả âm tính)
+- Tỷ lệ mắc bệnh trong dân số: $P("bệnh") = 0.01$ (1%)
 
-Tính xác suất một người có kết quả dương tính thực sự mắc bệnh $P(text(bệnh) | text(+))$.
+Tính xác suất một người có kết quả dương tính thực sự mắc bệnh $P("bệnh" | "+")$.
 
 *Lời giải.* Áp dụng công thức Bayes:
 
-$ P(text(bệnh) | text(+)) = frac(P(text(+)|text(bệnh)) dot P(text(bệnh)), P(text(+))) $
+$ P("bệnh" | "+") = frac(P("+"|"bệnh") dot P("bệnh"), P("+")) $
 
 Trong đó:
 $ &
-  P(text(+)) &= P(text(+)|text(bệnh)) dot P(text(bệnh)) + P(text(+)|text(khỏe)) dot P(text(khỏe)) \
+  P("+") &= P("+"|"bệnh") dot P("bệnh") + P("+"|"khỏe") dot P("khỏe") \
   &= 0.95 dot 0.01 + 0.10 dot 0.99 = 0.0095 + 0.0990 = 0.1085
 $
 
 Vậy:
-$ P(text(bệnh) | text(+)) = frac(0.95 dot 0.01, 0.1085) approx 0.0876 $
+$ P("bệnh" | "+") = frac(0.95 dot 0.01, 0.1085) approx 0.0876 $
 
 *Kết luận:* Chỉ khoảng 8.76% người có kết quả dương tính thực sự mắc bệnh!
 Đây là nghịch lý *tỷ lệ cơ sở* (base rate fallacy) — một bài học quan trọng

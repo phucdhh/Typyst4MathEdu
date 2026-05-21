@@ -2,73 +2,97 @@
 
 == Tài liệu chính thức
 
-- *Typst Documentation* — https://typst.app/docs
-  Tài liệu chính thức, đầy đủ và cập nhật nhất về Typst.
+- *Typst Documentation* \
+  #link("https://typst.app/docs")[https://typst.app/docs] \
+  Tài liệu chính thức, đầy đủ nhất. Luôn được cập nhật theo phiên bản mới nhất.
 
-- *Typst Universe* — https://typst.app/universe
-  Kho package chính thức, nơi tìm kiếm và chia sẻ template, gói mở rộng.
+- *Typst Universe* \
+  #link("https://typst.app/universe")[https://typst.app/universe] \
+  Kho package chính thức. Nơi tìm kiếm template, gói mở rộng, và theme.
 
-- *Typst GitHub* — https://github.com/typst/typst
-  Mã nguồn của Typst, issue tracker, roadmap phát triển.
+- *Typst GitHub Repository* \
+  #link("https://github.com/typst/typst")[https://github.com/typst/typst] \
+  Mã nguồn mở của Typst (Rust). Issue tracker, roadmap, và thảo luận phát triển.
 
 == Cộng đồng
 
-- *Discord chính thức Typst* — https://discord.gg/typst
-  Kênh chat, hỏi đáp, chia sẻ kinh nghiệm.
+- *Discord chính thức* — #link("https://discord.gg/typst")[https://discord.gg/typst] \
+  Kênh chat sôi động, hỏi đáp nhanh, chia sẻ dự án.
 
-- *Typst Forum* — https://forum.typst.app
-  Diễn đàn thảo luận, hỏi đáp chuyên sâu.
+- *Typst Forum* — #link("https://forum.typst.app")[https://forum.typst.app] \
+  Diễn đàn chính thức, thảo luận chuyên sâu.
 
-- *Reddit r/typst* — https://reddit.com/r/typst
+- *Reddit r/typst* — #link("https://reddit.com/r/typst")[https://reddit.com/r/typst] \
   Cộng đồng Typst trên Reddit.
 
-- *GitHub Discussions* — https://github.com/typst/typst/discussions
-  Thảo luận về tính năng, đề xuất ý tưởng mới.
+- *Nhóm Typst Việt Nam* — *(đang hình thành)*
 
 == Gói Typst hữu ích cho Toán học
 
 | Gói | Mô tả | Link |
 |-----|-------|------|
-| cetz | Vẽ hình hình học, đồ thị | github.com/cetz-package/cetz |
-| fletcher | Vẽ sơ đồ mũi tên | github.com/Jollywatt/typst-fletcher |
+| cetz | Vẽ hình học, đồ thị hàm số | github.com/cetz-package/cetz |
+| fletcher | Vẽ sơ đồ, lược đồ mũi tên | github.com/Jollywatt/typst-fletcher |
 | polylux | Tạo slide bài giảng | github.com/andreasKroepelin/polylux |
-| pinit | Chú thích công thức | github.com/OrangeX4/pinit |
-| showybox | Hộp định lý, ví dụ | github.com/Pablo-Gonzalez-Calderon/showybox-package |
-| equate | Đánh số công thức | github.com/typical-mathuser/equate |
+| pinit | Chú thích từng phần công thức | github.com/OrangeX4/pinit |
+| showybox | Hộp định lý, ví dụ, chú ý | github.com/Pablo-Gonzalez-Calderon/showybox-package |
+| equate | Đánh số công thức nâng cao | github.com/typical-mathuser/equate |
 | physica | Ký hiệu Vật lý | typst.app/universe/package/physica |
-| tablex | Bảng nâng cao | typst.app/universe/package/tablex |
+| tablex | Bảng nâng cao (merge ô, style) | typst.app/universe/package/tablex |
+| hydra | Màu sắc và theme | typst.app/universe/package/hydra |
+| diagraph | Vẽ đồ thị và biểu đồ | typst.app/universe/package/diagraph |
 
 == Sách và bài viết tham khảo
 
-- *The LaTeX Companion* (3rd ed.) — Frank Mittelbach et al.
-  Sách tham khảo về LaTeX, hữu ích cho việc so sánh và chuyển đổi.
+- *The TeXbook* — Donald E. Knuth (1984) \
+  Tác phẩm kinh điển của cha đẻ TeX, nền tảng lý thuyết cho mọi
+  hệ thống sắp chữ hiện đại — bao gồm cả Typst.
 
-- *Practical Typography* — Matthew Butterick
-  Nguyên lý typography cơ bản, áp dụng cho mọi công cụ soạn thảo.
+- *The LaTeX Companion* (3rd ed.) — Frank Mittelbach et al. (2023) \
+  Tài liệu tham khảo toàn diện về LaTeX. Hữu ích cho người chuyển từ LaTeX.
 
-- *Typst: A Programmable Markup Language* — Laurenz Mädje (luận án PhD)
-  Luận án giới thiệu Typst, giải thích thiết kế và kiến trúc.
+- *Practical Typography* — Matthew Butterick \
+  Nguyên lý typography thực hành, áp dụng cho mọi công cụ.
+
+- *Typst: A Programmable Markup Language* — Laurenz Mädje (2023) \
+  Luận án tiến sĩ tại ETH Zürich, giải thích chi tiết thiết kế và
+  kiến trúc của Typst.
+
+- *How to Solve It* — George Pólya (1945) \
+  Phương pháp luận giải Toán. Áp dụng để cấu trúc lời giải trong Typst.
 
 == Công cụ hỗ trợ
 
-- *Tinymist* — extension VS Code cho Typst (syntax highlighting, preview, LSP)
-- *Typst Preview* — extension VS Code, xem trước tức thì
-- *Typstfmt* — công cụ định dạng code Typst tự động
+- *Tinymist* — Extension VS Code toàn diện nhất cho Typst
+- *typstfmt* — Công cụ format code Typst tự động
+- *typst-test* — Framework viết test cho package Typst
+- *typstyle* — Định dạng code Typst theo style guide
 
 == Lời kết
 
-Typst là một công cụ trẻ nhưng đầy hứa hẹn. Với cộng đồng đang phát triển nhanh
-và sự hỗ trợ từ đội ngũ phát triển chuyên nghiệp, Typst có tiềm năng trở thành
-người kế thừa xứng đáng của LaTeX trong nhiều lĩnh vực.
+Typst là một công cụ trẻ — mới ra đời năm 2023 — nhưng đã thể hiện
+tiềm năng to lớn trong việc định hình lại cách chúng ta soạn thảo
+tài liệu Toán học. Với cú pháp đơn giản, tốc độ biên dịch nhanh,
+và khả năng lập trình mạnh mẽ, Typst không chỉ là sự thay thế
+cho LaTeX mà còn là một bước tiến trong lĩnh vực sắp chữ tài liệu.
 
-Chúc bạn thành công trên hành trình khám phá Typst!
+Cuốn sách này được viết trong 15 tuần, dựa trên PLAN.md chi tiết
+và sự đóng góp từ cộng đồng Toán học Việt Nam. Hy vọng bạn đã có
+một hành trình học tập thú vị và bổ ích!
 
 #v(2em)
+
+#align(center)[
+  *"The best way to learn is to teach."* \
+  — Frank Oppenheimer
+]
+
+#v(1em)
 
 #align(center, text(size: 10pt, fill: gray)[
   *Typst cho Toán học* — Hướng dẫn thực hành \
   Nguyễn Đăng Minh Phúc — Phiên bản 1.0 — 2026 \
-  Giấy phép: MIT License (code) / CC BY-SA 4.0 (nội dung)
+  Giấy phép: MIT (code) / CC BY-SA 4.0 (nội dung)
 ])
 
 #pagebreak()

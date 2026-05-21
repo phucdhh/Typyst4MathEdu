@@ -1,17 +1,16 @@
 #import "../assets/style.typ": *
+
 = Phụ lục B: Tổng hợp template sẵn dùng
 
-== Template 1: Phiếu bài tập
+== Template 1: Phiếu bài tập (A4, 1 cột)
 
 #code-block[
 ```typst
-#align(center, text(size: 16pt, weight: "bold"))[PHIẾU BÀI TẬP]
-#align(center)[Môn: ................. — Lớp: ...............]
+#align(center, text(size: 16pt, weight: "bold")[PHIẾU BÀI TẬP])
+#align(center)[Môn: ......................................]
+#align(center)[Lớp: .............. Ngày: ...../...../.....]
 
-#table(columns: (1fr, 1fr),
-  [Họ tên: .........................],
-  [Ngày: ....../....../......],
-)
+#table(columns: (1fr), [Họ và tên: .................................])
 
 #line(length: 100%)
 
@@ -19,53 +18,45 @@
 // Thêm câu hỏi trắc nghiệm ở đây
 
 *Phần 2: Tự luận*
-// Thêm câu hỏi tự luận ở đây
+// Thêm câu hỏi tự luận với v(3cm) giữa các câu
 
 *Bảng điểm:*
-#table(columns: (auto, auto, auto), stroke: 0.5pt,
-  [Câu], [1], [2], [Điểm tổng],
+#table(columns: (auto, auto, auto, auto), stroke: 0.5pt,
+  [Câu], [1], [2], [Tổng],
   [Điểm], [], [], [],
 )
 ```
 ]
 
-== Template 2: Đề kiểm tra 1 tiết
+== Template 2: Đề kiểm tra 1 tiết (A4, 2 cột trắc nghiệm)
 
 #code-block[
 ```typst
-#align(center, text(size: 15pt, weight: "bold"))[ĐỀ KIỂM TRA 1 TIẾT]
-#align(center)[Môn: #mon — Thời gian: #thoi-gian phút]
-#align(right)[Mã đề: #ma-de]
-
-#v(0.3em)
+#align(center, text(size: 15pt, weight: "bold")[ĐỀ KIỂM TRA 1 TIẾT])
+#align(center)[Môn: ......... — Thời gian: 45 phút]
+#align(right)[Mã đề: .....]
 
 #table(columns: (1fr, 1fr),
-  [Họ tên: .........................],
-  [Lớp: ............. SBD: .........],
+  [Họ tên: .............................],
+  [Lớp: ........ SBD: .................],
 )
 
-#line(length: 100%)
+#v(0.5em)
 
-*I. TRẮC NGHIỆM (#so-cau-tn câu, mỗi câu #diem-tn điểm)*
+*I. TRẮC NGHIỆM (mỗi câu 0.3 điểm)*
 
 #columns(2)[
-  // Nội dung trắc nghiệm
+  *Câu 1.* ...
+  *Câu 2.* ...
+  ...
 ]
 
-*II. TỰ LUẬN (#so-cau-tl câu, mỗi câu #diem-tl điểm)*
-
-// Nội dung tự luận
+*II. TỰ LUẬN*
+// Thêm câu hỏi tự luận
 ```
 ]
 
-== Template 3: Đề thi học kỳ
-
-Tương tự Template 2 nhưng thêm:
-- Trang bìa riêng
-- Quy định thí sinh
-- Chữ ký giám thị
-
-== Template 4: Slide bài giảng
+== Template 3: Slide bài giảng (Polylux)
 
 #code-block[
 ```typst
@@ -75,31 +66,25 @@ Tương tự Template 2 nhưng thêm:
   title-slide: true,
   outline-slide: true,
   base-header: align(right)[Tên môn học],
-  base-footer: align(center)[
-    #counter(page).display() / #counter(pages).display()
-  ],
+  base-footer: align(center)[#counter(page).display() / #counter(pages).display()],
 )
 
 #title-slide[
   = Tên bài giảng
-  Tên môn học
+  Môn học — Tuần X
 ]
 
 #slide[
-  = Mục lục
-  // Nội dung
-]
+  = Nội dung chính
 
-#slide[
-  = Nội dung bài học
-  // Nội dung
+  - Mục 1
+  - Mục 2
+  - Mục 3
 ]
 ```
 ]
 
-== Template 5: Báo cáo khóa luận / luận văn
-
-Cấu trúc trang:
+== Template 4: Báo cáo khóa luận
 
 #code-block[
 ```typst
@@ -107,24 +92,35 @@ Cấu trúc trang:
   paper: "a4",
   margin: (top: 3cm, bottom: 2.5cm, left: 3.5cm, right: 2.5cm),
   header: context {
-    let heading = query(heading).lastOrNone()
-    if heading != none {
-      set text(size: 9pt)
-      style(heading).body
-    }
+    let h = query(heading).lastOrNone()
+    if h != none { set text(size: 9pt); style(h).body }
   },
   footer: context {
     set text(size: 9pt)
     counter(page).display()
   },
 )
+
+#set text(font: "STIX Two", size: 12pt, lang: "vi")
+
+#set heading(numbering: "1.1")
+
+#set math.equation(numbering: "(1)")
+
+// Nội dung khóa luận...
 ```
 ]
 
-== Bài tập thực hành
+== Template 5: Đề thi học kỳ (tự luận)
 
-*Bài 1.* Tải Template 1 về và điền nội dung bài tập Giới hạn hàm số (5 câu trắc nghiệm + 2 câu tự luận).
+Tương tự Template 2, bổ sung:
+- Trang bìa riêng (có logo trường, thông tin kỳ thi)
+- Quy định thí sinh và hướng dẫn làm bài
+- Phần ghi điểm cho giám khảo ở cuối mỗi trang
 
-*Bài 2.* Dùng Template 2 tạo đề kiểm tra 1 tiết môn Đại số lớp 10.
+#ghi-nho[
+  Tất cả các template trên đều là file `.typ` thuần — bạn có thể
+  copy-paste và tùy chỉnh theo nhu cầu riêng.
+]
 
-*Bài 3.* Tạo slide bài giảng 10 slide về chủ đề "Hàm số bậc hai" dùng Template 4.
+#pagebreak()

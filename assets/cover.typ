@@ -1,7 +1,7 @@
 #set page(paper: "a4", margin: 0cm)
 
-#let primary-color = rgb("#1a5276")
-#let secondary-color = rgb("#2e86c1")
+#let primary-color = rgb("#c79319")
+#let secondary-color = rgb("#f1da44")
 
 #place(
   dx: 0pt, dy: 0pt,
@@ -48,8 +48,10 @@
 
 #v(0.5em)
 
+#import "version.typ": version
+
 #align(center, text(
   fill: rgb("#aed6f1"),
   size: 10pt,
-  "Phiên bản 05.2026"
+  "Phiên bản " + version
 ))
