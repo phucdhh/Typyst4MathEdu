@@ -17,7 +17,7 @@
 #align(center, text(size: 20pt, weight: "bold", fill: primary-color)[Mục lục])
 #v(1em)
 #show outline.entry.where(level: 1): it => {
-  v(0.4em, weak: true)
+  v(1.2em, weak: true)
   text(fill: primary-color, weight: "bold")[#it]
 }
 #outline(

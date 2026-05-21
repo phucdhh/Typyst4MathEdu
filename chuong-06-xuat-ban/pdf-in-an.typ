@@ -1,6 +1,6 @@
 #import "../assets/style.typ": *
 
-= Chương 6: Xuất bản & Cộng tác
+= Chương 6: XUẤT BẢN VÀ CỘNG TÁC
 
 Sau khi hoàn thiện nội dung, bước cuối cùng là *đưa tài liệu ra thế giới*:
 xuất PDF đẹp để gửi in hoặc chia sẻ qua email, upload lên mạng để học sinh
