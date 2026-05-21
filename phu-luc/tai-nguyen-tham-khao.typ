@@ -16,16 +16,15 @@
 
 == Cộng đồng
 
+- *Nhóm sử dụng LaTeX và Typyst trên HeyTeX* — #link("https://www.ganjingworld.com/s/eKX33OVjAZ")[https://www.ganjingworld.com/s/eKX33OVjAZ] \
+
 - *Discord chính thức* — #link("https://discord.gg/typst")[https://discord.gg/typst] \
   Kênh chat sôi động, hỏi đáp nhanh, chia sẻ dự án.
-
-- *Typst Forum* — #link("https://forum.typst.app")[https://forum.typst.app] \
-  Diễn đàn chính thức, thảo luận chuyên sâu.
 
 - *Reddit r/typst* — #link("https://reddit.com/r/typst")[https://reddit.com/r/typst] \
   Cộng đồng Typst trên Reddit.
 
-- *Nhóm Typst Việt Nam* — *(đang hình thành)*
+
 
 == Gói Typst hữu ích cho Toán học
 
@@ -77,7 +76,7 @@ và khả năng lập trình mạnh mẽ, Typst không chỉ là sự thay thế
 cho LaTeX mà còn là một bước tiến trong lĩnh vực sắp chữ tài liệu.
 
 Cuốn sách này được viết trong 15 tuần, dựa trên PLAN.md chi tiết
-và sự đóng góp từ cộng đồng Toán học Việt Nam. Hy vọng bạn đã có
+và sự đóng góp từ cộng đồng những người yêu Toán. Hy vọng bạn đã có
 một hành trình học tập thú vị và bổ ích!
 
 #v(2em)
