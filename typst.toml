@@ -1,0 +1,15 @@
+[package]
+name = "typst-toan-hoc"
+version = "1.0.0"
+entrypoint = "book.typ"
+authors = ["Nguyễn Đăng Minh Phúc"]
+license = "MIT"
+description = "Typst cho Toán học — Hướng dẫn thực hành"
+
+[dependencies]
+cetz = "0.3.2"
+fletcher = "0.5.7"
+polylux = "0.4.0"
+pinit = "0.2.2"
+showybox = "2.0.4"
+equate = "0.3.1"
