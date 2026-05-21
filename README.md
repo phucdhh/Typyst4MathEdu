@@ -1,8 +1,9 @@
-# 📐 Typst cho Toán học — Hướng dẫn thực hành
+# 📐 Soạn văn bản Toán bằng Typyst — Hướng dẫn thực hành
 
 > *Soạn thảo công thức, trình bày bài toán và xuất bản tài liệu Toán chuyên nghiệp với Typst*
-Tác giả chính: Nguyễn Đăng Minh Phúc
 ---
+
+### Tác giả chính: Nguyễn Đăng Minh Phúc
 
 ## Giới thiệu
 

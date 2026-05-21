@@ -1,0 +1,19 @@
+.DS_Store
+
+# Typst build output
+*.pdf
+*.log
+*_cache/
+_output/
+.target/
+typst-out/
+
+# Editor directories
+.vscode/
+.idea/
+
+# System files
+Thumbs.db
+
+# chống sao chép
+assets/style.typ
