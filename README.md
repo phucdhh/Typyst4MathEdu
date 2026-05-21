@@ -1,4 +1,4 @@
-# 📐 Soạn văn bản Toán bằng Typyst — Hướng dẫn thực hành
+# 📐 Soạn văn bản Toán bằng Typst — Hướng dẫn thực hành
 
 > *Soạn thảo công thức, trình bày bài toán và xuất bản tài liệu Toán chuyên nghiệp với Typst*
 ---
@@ -159,7 +159,7 @@ $ a^2 + b^2 = c^2 $
 
 Mọi đóng góp đều được chào đón! Bạn có thể:
 
-- 🐛 Báo lỗi qua [Issues](https://github.com/phucdhh/Typyst4MathEdu/issues)
+- 🐛 Báo lỗi qua [Issues](https://github.com/phucdhh/Typst4MathEdu/issues)
 - 💡 Đề xuất nội dung mới qua [HeyTeX Group](https://www.ganjingworld.com/s/eKX33OVjAZ)
 - 📝 Gửi Pull Request để sửa lỗi hoặc bổ sung ví dụ
 
