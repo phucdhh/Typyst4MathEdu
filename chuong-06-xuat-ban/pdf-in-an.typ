@@ -143,7 +143,7 @@ version = "1.0.0"
 entrypoint = "lib.typ"
 authors = ["Nguyễn Đăng Minh Phúc"]
 license = "MIT"
-description = "Template đề thi Toán học cho giáo viên Việt Nam"
+description = "Template đề thi Toán học cho giáo viên"
 keywords = ["toan", "de-thi", "giao-duc", "viet-nam"]
 ```
 ]

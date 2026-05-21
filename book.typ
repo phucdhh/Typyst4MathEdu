@@ -83,7 +83,7 @@ Chúc bạn đọc vui và sớm tạo ra những tài liệu Toán học thật
 
 #heading(level: 1, numbering: none)[Giới thiệu tổng quan]
 
-Đây là cuốn sách thực hành về Typst dành riêng cho bối cảnh giảng dạy và học Toán tại Việt Nam.
+Đây là cuốn sách thực hành về Typst dành riêng cho bối cảnh giảng dạy và học Toán.
 Cuốn sách được tổ chức thành 6 chương chính và 3 phụ lục, đi từ cơ bản đến nâng cao:
 
 *Chương 1 — Giới thiệu Typst:* Tại sao nên dùng Typst? So sánh với LaTeX và Microsoft Word.

@@ -177,7 +177,7 @@ Vui lòng đọc [`CONTRIBUTING.md`](./CONTRIBUTING.md) trước khi gửi PR.
 ## 💬 Liên hệ & Cộng đồng
 
 - 📧 Email: `ndmphuc@hueuni.edu.vn`
-- 🇻🇳 Nhóm Typst Việt Nam: [HeyTeX Group](https://www.ganjingworld.com/s/eKX33OVjAZ)
+- 🇻🇳 Nhóm Typst & LaTeX: [HeyTeX Group](https://www.ganjingworld.com/s/eKX33OVjAZ)
 
 ---
 
