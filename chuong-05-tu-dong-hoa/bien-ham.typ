@@ -1,116 +1,128 @@
 #import "../assets/style.typ": *
-= Chương 5: Tự động hóa & Lập trình
+
+= Chương 5: Tự động hóa & Lập trình với Typst
+
+#ghi-nho[
+  *Mục tiêu chương:* Làm chủ ngôn ngữ scripting của Typst để
+  tái sử dụng cấu trúc, nhập dữ liệu từ file ngoài, và sinh
+  nội dung tự động — biến Typst từ công cụ soạn thảo thành
+  một nền tảng tạo tài liệu thông minh.
+]
 
 == Ngôn ngữ scripting của Typst
 
-Typst không chỉ là ngôn ngữ đánh dấu — nó có một ngôn ngữ lập trình tích hợp
-mạnh mẽ cho phép tự động hóa nội dung.
+Typst không chỉ là ngôn ngữ đánh dấu (_markup_) — nó có một ngôn ngữ
+lập trình đầy đủ (_scripting_) tích hợp bên trong. Điều này có nghĩa
+bạn có thể viết code để tự động tạo nội dung, tính toán, và xử lý dữ liệu
+mà không cần bất kỳ công cụ bên ngoài nào.
 
-=== Hai chế độ: Content mode vs Code mode
+=== Hai chế độ: Content Mode vs Code Mode
 
-- *Content mode:* viết văn bản thông thường, định dạng, công thức
-- *Code mode:* bắt đầu bằng `#`, chạy biểu thức Typst
+Typst hoạt động ở hai chế độ:
+
+1. *Content mode* (mặc định): viết văn bản, định dạng, công thức.
+   Mọi thứ bạn gõ đều được hiểu là nội dung.
+
+2. *Code mode* (bắt đầu bằng `#`): viết biểu thức, gọi hàm, tính toán.
+   Dấu `#` chuyển từ content mode sang code mode.
 
 #code-block[
 ```typst
-#let x = 5        // code mode: gán biến
-x = #x            // content mode: hiển thị giá trị
+#let x = 5          // code mode: định nghĩa biến
+Giá trị là #x.      // content mode + code: hiển thị giá trị
+#let y = x * 2 + 1  // code mode: tính toán
+Kết quả: #y.        // hiển thị kết quả
 ```
 ]
 
 === Biến và kiểu dữ liệu
 
+Typst hỗ trợ các kiểu dữ liệu cơ bản:
+
 #code-block[
 ```typst
-// Kiểu số
-#let so = 42
-#let thuc = 3.14
+// Số nguyên và số thực
+#let so-nguyen = 42
+#let so-thuc = 3.14159
 
-// Kiểu chuỗi
+// Chuỗi (string)
 #let ten = "Typst"
-#let ghep = ten + " là công cụ soạn thảo"
+#let mo-ta = "công cụ soạn thảo thế hệ mới"
 
-// Kiểu bool
+// Boolean
 #let dung = true
 #let sai = false
 
-// Kiểu content
-#let doan = [Đây là *nội dung* được định dạng]
-
-// Array
+// Mảng (array)
 #let ds = (1, 2, 3, 4, 5)
+#let ds-rong = ()
 
-// Dictionary
+// Từ điển (dictionary)
 #let sv = (ho: "Nguyễn", ten: "An", diem: 8.5)
+
+// Content (nội dung đã định dạng)
+#let gioi-thieu = [Đây là *nội dung* Typst]
 ```
 ]
 
-=== Điều kiện
+=== Điều kiện (if-else)
 
 #code-block[
 ```typst
 #let diem = 8.5
 
-#if diem >= 8 [
-  *Giỏi*
+Phân loại:
+#if diem >= 9 [
+  Xuất sắc
+] else if diem >= 8 [
+  Giỏi
 ] else if diem >= 6.5 [
-  *Khá*
+  Khá
+] else if diem >= 5 [
+  Trung bình
 ] else [
-  *Trung bình*
+  Yếu
 ]
 ```
 ]
 
-=== Vòng lặp
+=== Vòng lặp (for loop)
 
 #code-block[
 ```typst
-// Duyệt array
+// Duyệt mảng
 #for i in (1, 2, 3, 4, 5) [
-  Số #i
+  Số thứ #i \
 ]
 
 // Duyệt range
-#for i in range(5) [
-  #i,
+#for i in range(1, 6) [
+  Bình phương của #i là #(i * i). \
 ]
 ```
 ]
 
-=== Hàm
+=== Hàm (function)
 
-Hàm cho phép đóng gói nội dung tái sử dụng:
+Hàm là chìa khóa để viết code tái sử dụng. Trong Typst, hàm được
+định nghĩa bằng `#let`:
 
 #code-block[
 ```typst
+// Hàm đơn giản
+#let binh-phuong(x) = x * x
+
+#binh-phuong(5)  // trả về 25
+
+// Hàm trả về nội dung (content)
 #let dinh-ly(ten, noi-dung) = {
   showybox(
     title: "Định lý " + ten,
     body: noi-dung,
-    frame: (stroke: 1.5pt + primary-color),
-    header: (fill: primary-color, text-weight: "bold"),
+    frame: (stroke: 1.5pt + blue),
+    header: (fill: blue, text-weight: "bold"),
   )
 }
-
-// Sử dụng
-#dinh-ly("Pythagoras")[
-  $ a^2 + b^2 = c^2 $
-]
-```
-]
-
-=== Scope và import
-
-#code-block[
-```typst
-// Import một hàm cụ thể
-#import "assets/style.typ": dinh-ly, vi-du
-
-// Import toàn bộ (kèm *)
-#import "assets/style.typ": *
-
-// Include nội dung
-#include "chuong-01/index.typ"
 ```
 ]
 
@@ -121,9 +133,10 @@ Hàm cho phép đóng gói nội dung tái sử dụng:
 #let bang-nhan(n) = {
   table(
     columns: (auto, auto, auto),
-    [*n*], [*Kết quả*], [*Công thức*],
+    stroke: 0.5pt,
+    table.header[*Phép tính*], table.header[*Kết quả*], table.header[*Công thức*],
     ..for i in range(1, 11) {
-      (str(i), str(n * i), [#n × #i = #(n * i)])
+      (str(n) + " × " + str(i), str(n * i), [= #n × #i])
     },
   )
 }
@@ -132,117 +145,119 @@ Hàm cho phép đóng gói nội dung tái sử dụng:
 ```
 ]
 
-== Hàm và component tái sử dụng
+Kết quả tạo ra bảng cửu chương 7 với 10 dòng tự động, không cần viết tay
+từng dòng — đây chính là sức mạnh của scripting.
 
-=== Thiết kế hàm cho nội dung Toán
+=== Scope và module
 
-==== Hàm định lý tổng quát
+- `#import "file.typ": ten-ham` — import một hàm cụ thể
+- `#import "file.typ": *` — import tất cả
+- `#include "file.typ"` — chèn toàn bộ nội dung file vào vị trí hiện tại
+
+== Hàm và Component tái sử dụng cho Toán học
+
+=== Thiết kế hệ thống hàm cho sách Toán
+
+Để viết một cuốn sách Toán nhất quán, bạn nên thiết kế một bộ hàm
+dùng chung toàn bộ sách, đặt trong file `style.typ`:
 
 #code-block[
 ```typst
+// style.typ — Bộ hàm dùng chung
+
 #let dinh-ly(so, ten, noi-dung) = {
   showybox(
     title: "Định lý " + so + ". " + ten,
     body: noi-dung,
-    frame: (stroke: 1.5pt + primary-color),
-    header: (fill: primary-color, text-weight: "bold"),
-    margin: 0.5em,
+    frame: (stroke: 1.5pt + rgb("#1a5276")),
+    header: (fill: rgb("#1a5276"), text-weight: "bold"),
   )
 }
-```
-]
 
-==== Hàm ví dụ có lời giải
-
-#code-block[
-```typst
-#let vi-du(so, bai, giai) = {
+#let vi-du(so, bai, giai: none) = {
   showybox(
     title: "Ví dụ " + so,
-    body: [
-      #bai
-      #if giai != none [
-        *Lời giải.* #giai
-      ]
-    ],
-    frame: (stroke: 1.5pt + accent-color),
-    header: (fill: accent-color, text-weight: "bold"),
-    margin: 0.5em,
+    body: if giai != none {
+      [#bai
+
+      *Lời giải.* #giai]
+    } else { bai },
+    frame: (stroke: 1.5pt + rgb("#e67e22")),
+    header: (fill: rgb("#e67e22"), text-weight: "bold"),
   )
 }
 
-// Sử dụng
-#vi-du(
-  "1",
-  [Tính $integral_0^1 x^2 dif x$],
-  [$ = [frac(x^3, 3)]_0^1 = frac(1, 3)$],
-)
+#let bai-tap(diem, cau, giai: none) = {
+  let so = counter("bt").step()
+  [
+    *Bài #counter("bt").display() (#diem điểm).* #cau
+    #if giai != none {
+      #loi-giai[#giai]
+    }
+  ]
+}
 ```
 ]
 
-=== Set và Show rules
+=== Set Rules và Show Rules
 
-`#set` thay đổi thuộc tính mặc định, `#show` biến đổi hiển thị:
+`#set` và `#show` là hai cơ chế mạnh để kiểm soát giao diện toàn cục:
+
+*Set rule* — thay đổi thuộc tính mặc định:
 
 #code-block[
 ```typst
-// Set: tất cả công thức được đánh số
+#set text(size: 12pt, font: "STIX Two")
+#set page(paper: "a4", margin: 2.5cm)
 #set math.equation(numbering: "(1)")
-
-// Show: bọc tất cả heading cấp 1
-#show heading.where(level: 1): it => {
-  set text(size: 18pt, weight: "bold", fill: primary-color)
-  v(1.5em)
-  it
-  v(0.5em)
-  line(length: 100%, stroke: 0.5pt + primary-color)
-  v(0.5em)
-}
-
-// Show: bọc tất cả công thức
-#show math.equation: it => {
-  box(stroke: 0.5pt + gray, inset: 4pt, it)
-}
 ```
 ]
 
-=== State và Counter
-
-Dùng `counter` để đánh số tự động:
+*Show rule* — biến đổi cách hiển thị:
 
 #code-block[
 ```typst
-// Tạo counter
-#let vt = counter("vi-du")
-
-// Mỗi lần gọi, tăng counter
-#let vi-du(body) = {
-  vt.step()
-  showybox(
-    title: "Ví dụ " + vt.display(),
-    body: body,
-  )
-}
-
-// Reset counter theo chương
-#let reset-counter() = {
-  vt.update(0)
+// Tùy chỉnh cách hiển thị tiêu đề cấp 1
+#show heading.where(level: 1): it => {
+  set text(size: 20pt, weight: "bold", fill: blue)
+  v(1em)
+  it
+  v(0.3em)
+  line(length: 100%, stroke: 0.5pt + blue)
+  v(0.5em)
 }
 ```
 ]
 
-=== Xây dựng file style.typ
+=== Counter và State
 
-Một file `style.typ` tốt nên chứa:
-- Các hằng số màu sắc
-- Các hàm dựng sẵn (định lý, ví dụ, bài tập)
-- Các show rule toàn cục
-- Cài đặt page, text, heading
+Dùng `counter` để đánh số tự động cho các phần tử:
 
-=== Bài tập thực hành
+#code-block[
+```typst
+#let dinh-ly(ten, noi-dung) = {
+  context {
+    let so = counter("dinh-ly").step()
+    showybox(
+      title: "Định lý " + str(so) + ". " + ten,
+      body: noi-dung,
+    )
+  }
+}
+```
+]
 
-*Bài 1.* Viết hàm `ve-do-thi(f, x_min, x_max)` vẽ đồ thị hàm số $y = f(x)$ bằng cetz.
+=== Bài tập thực hành (Scripting)
 
-*Bài 2.* Tạo hàm `bang-tich-phan(f, a, b, n)` tính gần đúng tích phân bằng công thức hình thang.
+*Bài 1.* Viết hàm `ve-do-thi(f, x_min, x_max, n)` nhận tham số là
+hàm số $f$, khoảng vẽ, và số điểm rời rạc. Hàm vẽ đồ thị bằng cetz,
+tự động thêm trục tọa độ và nhãn.
 
-*Bài 3.* Xây dựng hệ thống counter tự động cho định lý, ví dụ, bài tập trong một chương.
+*Bài 2.* Tạo hàm `tinh-tich-phan-hinh-thang(f, a, b, n)` tính gần đúng
+tích phân $integral_a^b f(x) dif x$ bằng công thức hình thang với
+$n$ đoạn chia. In ra kết quả và so sánh với giá trị chính xác.
+
+*Bài 3.* Xây dựng hệ thống counter độc lập cho: Định lý, Ví dụ, Bài tập,
+và Hình vẽ. Đảm bảo mỗi chương reset counter về 1.
+
+#pagebreak()

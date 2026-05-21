@@ -3,7 +3,7 @@
 > *Soạn thảo công thức, trình bày bài toán và xuất bản tài liệu Toán chuyên nghiệp với Typst*
 ---
 
-### Tác giả chính: Nguyễn Đăng Minh Phúc
+#### Tác giả chính: Nguyễn Đăng Minh Phúc
 
 ## Giới thiệu
 
