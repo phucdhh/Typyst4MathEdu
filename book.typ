@@ -19,40 +19,21 @@
 
 #pagebreak()
 
-#heading(level: 1, numbering: none)[Lời nói đầu]
+#heading(level: 1, numbering: none)[LỜI NÓI ĐẦU]
 
-Toán học là ngôn ngữ khả dĩ mô tả được vũ trụ. Từ những phương trình mô tả quỹ đạo hành tinh của Kepler,
-đến các khai triển chuỗi vô hạn của Euler, đến những bất đẳng thức tinh tế trong lý thuyết số —
-tất cả đều cần được viết ra, được trình bày, được truyền đạt. Và để làm điều đó, người làm Toán
-cần một công cụ soạn thảo xứng tầm.
+Toán học là ngôn ngữ khả dĩ mô tả được thế giới vật chất. Từ những phương trình mô tả quỹ đạo hành tinh của Kepler, đến các khai triển chuỗi vô hạn của Euler, đến những bất đẳng thức tinh tế trong lý thuyết số — tất cả đều cần được viết ra, được trình bày, được truyền đạt. Và để làm điều đó, người yêu Toán cần một công cụ soạn thảo xứng tầm.
 
-Trong nhiều thập kỷ, LaTeX đã là tiêu chuẩn không thể thay thế cho cộng đồng khoa học và giáo dục.
-Những ai đã từng dùng LaTeX đều biết cảm giác khi nhìn vào file PDF: công thức sắc nét, bố cục
-hoàn hảo, typography đẹp đến từng chi tiết. Nhưng cũng không ai không biết cảm giác bỏ ra nửa buổi
-chỉ để gỡ một lỗi biên dịch, hoặc phải cài đặt cả TeX Live với hàng chục gigabyte chỉ để viết
-một tài liệu ngắn.
+Trong nhiều thập kỷ, LaTeX đã là tiêu chuẩn không thể thay thế cho cộng đồng khoa học và giáo dục. Những ai đã từng dùng LaTeX đều biết cảm giác khi nhìn vào file PDF: công thức sắc nét, bố cục hoàn hảo, in ấn (typography) đẹp đến từng chi tiết. Nhưng cũng không ai không biết cảm giác bỏ ra nửa buổi chỉ để gỡ một lỗi biên dịch, hoặc phải cài đặt cả TeX Live rườm rà, cài đủ các gói (package) cần thiết chỉ để viết một tài liệu ngắn.
 
 *Typst* ra đời để thay đổi điều đó.
 
-Được phát triển từ năm 2019 bởi nhóm nghiên cứu tại ETH Zürich và công bố rộng rãi từ năm 2023,
-Typst giữ lại tất cả những điều tốt nhất của LaTeX — khả năng soạn thảo công thức Toán học
-chuẩn mực, kiểm soát hoàn toàn bố cục trang in — trong khi loại bỏ hầu hết những phức tạp không
-cần thiết. Typst biên dịch tức thì, cú pháp dễ đọc, dễ học, và chỉ cần một file thực thi ~40MB
-để chạy trên mọi hệ điều hành.
+Được phát triển từ năm 2019 bởi nhóm nghiên cứu tại ETH Zürich và công bố rộng rãi từ năm 2023, Typst cố gắng giữ lại tất cả những điều tốt nhất của LaTeX — khả năng soạn thảo công thức Toán học chuẩn mực, kiểm soát hoàn toàn bố cục trang in — trong khi loại bỏ hầu hết những phức tạp không cần thiết. Typst biên dịch tức thì, cú pháp dễ đọc, dễ học, và chỉ cần một file thực thi ~40MB để chạy trên mọi hệ điều hành.
 
-Cuốn sách này được viết dành cho *sinh viên, giáo viên và người yêu Toán* — những người
-muốn tận dụng sức mạnh của Typst để tạo ra tài liệu Toán học đẹp, chuyên nghiệp và dễ bảo trì.
-Bạn không cần biết gì về Typst, về LaTeX, hay về lập trình trước khi đọc cuốn sách này. Chúng tôi
-sẽ đưa bạn từ bước đầu tiên — cài đặt phần mềm, viết dòng code Typst đầu tiên — đến những kỹ thuật
-nâng cao như tự động hóa đề thi, tạo slide bài giảng, và xuất bản tài liệu chuyên nghiệp.
+Cuốn sách này được viết dành cho *sinh viên, giáo viên và người yêu Toán* — những ai muốn tận dụng sức mạnh của Typst để tạo ra tài liệu Toán học đẹp, chuyên nghiệp và dễ bảo trì. Bạn có thể không cần biết gì về Typst, về LaTeX, hay về lập trình trước khi đọc cuốn sách này. Chúng tôi sẽ đưa bạn từ bước đầu tiên — cài đặt phần mềm, viết dòng code Typst đầu tiên — đến những kỹ thuật nâng cao như tự động hóa đề thi, tạo slide bài giảng, và xuất bản tài liệu chuyên nghiệp.
 
-Một điểm đặc biệt của cuốn sách: mỗi đoạn code đều đi kèm *kết quả biên dịch* hiển thị ngay bên
-dưới. Bạn không chỉ đọc code trừu tượng — bạn thấy ngay code đó tạo ra kết quả gì, và có thể
-copy-paste để thử ngay trên máy tính của mình.
+Một điểm đặc biệt của cuốn sách: mỗi đoạn code đều đi kèm *kết quả biên dịch* hiển thị ngay sau đó. Bạn không chỉ đọc code trừu tượng — bạn thấy ngay code đó tạo ra kết quả gì, và có thể copy-paste để thử ngay trên máy tính của mình hoặc trên các nền tảng biên tập Typst trực tuyến như HeyTeX (https://heytex.pedu.vn).
 
-Chúng tôi tin rằng học qua ví dụ thực hành là cách hiệu quả nhất. Vì vậy mỗi chương đều có
-bài tập từ đơn giản đến nâng cao, giúp bạn củng cố kiến thức vừa học và phát triển kỹ năng
-soạn thảo Toán học bằng Typst một cách tự nhiên.
+Chúng tôi tin rằng học qua ví dụ thực hành là cách hiệu quả nhất. Vì vậy mỗi chương đều có bài tập từ đơn giản đến nâng cao, giúp bạn củng cố kiến thức vừa học và phát triển kỹ năng soạn thảo Toán học bằng Typst một cách tự nhiên.
 
 Chúc bạn đọc vui và sớm tạo ra những tài liệu Toán học thật đẹp!
 
@@ -61,6 +42,8 @@ Chúc bạn đọc vui và sớm tạo ra những tài liệu Toán học thật
   _Tác giả_ \
   Nguyễn Đăng Minh Phúc
 ]
+
+#pagebreak()
 
 == Cách đọc sách hiệu quả
 
@@ -81,10 +64,9 @@ Chúc bạn đọc vui và sớm tạo ra những tài liệu Toán học thật
 
 #pagebreak()
 
-#heading(level: 1, numbering: none)[Giới thiệu tổng quan]
+#heading(level: 1, numbering: none)[GIỚI THIỆU TỔNG QUAN]
 
-Đây là cuốn sách thực hành về Typst dành riêng cho bối cảnh giảng dạy và học Toán.
-Cuốn sách được tổ chức thành 6 chương chính và 3 phụ lục, đi từ cơ bản đến nâng cao:
+Đây là cuốn sách thực hành về Typst dành riêng cho bối cảnh giảng dạy và học Toán. Cuốn sách được tổ chức thành 6 chương chính và 3 phụ lục, đi từ cơ bản đến nâng cao:
 
 *Chương 1 — Giới thiệu Typst:* Tại sao nên dùng Typst? So sánh với LaTeX và Microsoft Word.
 Cài đặt môi trường làm việc trên Windows, macOS và Linux. Viết tài liệu đầu tiên trong 5 phút.
@@ -112,9 +94,7 @@ Làm việc nhóm với Git. Đóng gói và chia sẻ template Typst.
 
 #v(1em)
 #ghi-nho[
-  Tất cả ví dụ trong sách đều được kiểm tra với *Typst phiên bản 0.13+*.
-  Nếu bạn dùng phiên bản cũ hơn, một số lệnh có thể có cú pháp khác.
-  Hãy kiểm tra phiên bản bằng lệnh `typst --version` trong terminal.
+  Tất cả ví dụ trong sách đều được kiểm tra với *Typst phiên bản 0.13+*. Nếu bạn dùng phiên bản cũ hơn, một số lệnh có thể có cú pháp khác. Hãy kiểm tra phiên bản bằng lệnh `typst --version` trong terminal.
 ]
 
 #pagebreak()
