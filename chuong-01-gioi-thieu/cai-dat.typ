@@ -245,7 +245,7 @@ du-an/
 #code-block[
 ```typst
 // Import toàn bộ gói
-#import "@preview/cetz:0.3.2": *
+#import "@preview/cetz:0.3.4": *
 
 // Import một hàm cụ thể
 #import "@preview/showybox:2.0.4": showybox
@@ -261,7 +261,7 @@ Bạn cũng có thể khai báo dependencies trong `typst.toml` để Typst tự
 ```toml
 # typst.toml
 [dependencies]
-cetz = "0.3.2"
+cetz = "0.3.4"
 polylux = "0.4.0"
 ```
 ]

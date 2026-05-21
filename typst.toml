@@ -7,7 +7,7 @@ license = "MIT"
 description = "Typst cho Toán học — Hướng dẫn thực hành"
 
 [dependencies]
-cetz = "0.3.2"
+cetz = "0.3.4"
 fletcher = "0.5.7"
 polylux = "0.4.0"
 pinit = "0.2.2"

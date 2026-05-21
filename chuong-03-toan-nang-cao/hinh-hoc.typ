@@ -1,4 +1,5 @@
 #import "../assets/style.typ": *
+#import "@preview/cetz:0.3.4": canvas, draw
 
 == Hình học và đồ họa với cetz
 
@@ -15,7 +16,7 @@ Bezier, và gán nhãn cho mọi đối tượng. Kết quả là hình vector h
 #code-block[
 ```typst
 // Cài đặt: thêm vào đầu file
-#import "@preview/cetz:0.3.2": canvas, draw
+#import "@preview/cetz:0.3.4": canvas, draw
 ```
 ]
 
@@ -68,6 +69,23 @@ với gốc ở góc dưới bên trái (mặc định).
 ```
 ]
 
+#figure(
+  canvas(length: 0.7cm, {
+    import draw: *
+    line((0, 0), (4, 0))
+    line((0, 0), (0, 3))
+    line((4, 0), (0, 3))
+    line((0, 0.35), (0.35, 0.35))
+    line((0.35, 0), (0.35, 0.35))
+    content((0, 0), $A$, anchor: "north-east")
+    content((4, 0), $B$, anchor: "north-west")
+    content((0, 3), $C$, anchor: "south-east")
+    content((2, -0.3), $4$)
+    content((-0.3, 1.5), $3$)
+  }),
+  caption: [Tam giác vuông $A B C$ với ký hiệu góc vuông tại $A$],
+)
+
 *Vẽ đường tròn và cung:*
 
 #code-block[
@@ -114,6 +132,24 @@ với gốc ở góc dưới bên trái (mặc định).
 })
 ```
 ]
+
+#figure(
+  canvas(length: 0.7cm, {
+    import draw: *
+    line((0, 0), (4, 0))
+    line((0, 0), (0, 3))
+    line((4, 0), (0, 3))
+    line((0, 0.4), (0.4, 0.4))
+    line((0.4, 0), (0.4, 0.4))
+    content((0, 0), $A$, anchor: "north-east")
+    content((4, 0), $B$, anchor: "north-west")
+    content((0, 3), $C$, anchor: "south-east")
+    circle((2, 1.5), radius: 2.5, stroke: blue)
+    circle((2, 1.5), radius: 0.06, fill: blue)
+    content((2.15, 1.5), $O$, anchor: "west")
+  }),
+  caption: [Tam giác vuông $A B C$ và đường tròn ngoại tiếp — tâm $O$ là trung điểm $B C$],
+)
 
 === Bài tập (Hình học với cetz)
 
@@ -234,6 +270,34 @@ cetz có thể vẽ đồ thị hàm số bằng cách nối các điểm rời 
 })
 ```
 ]
+
+#figure(
+  canvas(length: 1cm, {
+    import draw: *
+    // Trục tọa độ
+    line((-3.5, 0), (3.5, 0))
+    line((0, -1.5), (0, 1.6))
+    content((3.7, 0.15), $x$)
+    content((0.15, 1.7), $y$)
+    // Vẽ y = sin x
+    let dx = 6.28 / 60
+    for i in range(60) {
+      let x = -3.14 + i * dx
+      line((x, calc.sin(x)), (x + dx, calc.sin(x + dx)), stroke: blue)
+    }
+    // Vẽ y = cos x
+    for i in range(60) {
+      let x = -3.14 + i * dx
+      line((x, calc.cos(x)), (x + dx, calc.cos(x + dx)), stroke: red)
+    }
+    // Chú thích
+    line((0.5, 1.35), (1.0, 1.35), stroke: blue)
+    content((1.05, 1.35), [#text(fill: blue)[$y = sin x$]], anchor: "west")
+    line((0.5, 1.0), (1.0, 1.0), stroke: red)
+    content((1.05, 1.0), [#text(fill: red)[$y = cos x$]], anchor: "west")
+  }),
+  caption: [Đồ thị $y = sin x$ (xanh) và $y = cos x$ (đỏ) trên đoạn $[-pi, pi]$],
+)
 
 === Vẽ sơ đồ với fletcher
 
