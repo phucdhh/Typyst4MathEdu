@@ -8,6 +8,27 @@
 
 #align(center, text(size: 20pt, weight: "bold", fill: primary-color)[Mục lục])
 #v(1em)
+#show outline.entry: it => {
+  let e = it.element
+  link(e.location())[
+    #h((it.level - 1) * 1em)
+    #if e.numbering != none {
+      context {
+        let nums = counter(heading).at(e.location())
+        let nums-trunc = nums.slice(0, it.level)
+        text(
+          fill: primary-color,
+          weight: if it.level == 1 { "bold" } else { "regular" },
+        )[#numbering(e.numbering, ..nums-trunc)#h(0.5em)]
+      }
+    }
+    #text(weight: if it.level == 1 { "bold" } else { "regular" })[#e.body]
+  ]
+  box(width: 1fr, repeat[.])
+  [ ]
+  link(e.location())[#it.page()]
+  linebreak()
+}
 #outline(
   title: none,
   indent: auto,
