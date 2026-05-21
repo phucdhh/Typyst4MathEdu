@@ -36,7 +36,7 @@ chuẩn mực, kiểm soát hoàn toàn bố cục trang in — trong khi loại
 cần thiết. Typst biên dịch tức thì, cú pháp dễ đọc, dễ học, và chỉ cần một file thực thi ~40MB
 để chạy trên mọi hệ điều hành.
 
-Cuốn sách này được viết dành cho *sinh viên, giáo viên và người làm Toán ở Việt Nam* — những người
+Cuốn sách này được viết dành cho *sinh viên, giáo viên và người yêu Toán* — những người
 muốn tận dụng sức mạnh của Typst để tạo ra tài liệu Toán học đẹp, chuyên nghiệp và dễ bảo trì.
 Bạn không cần biết gì về Typst, về LaTeX, hay về lập trình trước khi đọc cuốn sách này. Chúng tôi
 sẽ đưa bạn từ bước đầu tiên — cài đặt phần mềm, viết dòng code Typst đầu tiên — đến những kỹ thuật
